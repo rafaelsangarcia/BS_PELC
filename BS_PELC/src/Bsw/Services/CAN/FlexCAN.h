@@ -7,7 +7,8 @@
 #ifndef FLEXCAN_H_
 #define FLEXCAN_H_
 
-
+uint32_t rx_msg_data[2];
+uint32_t tx_msg_data[2];
 
 void FLEXCAN0_init (void);
 void FLEXCAN0_transmit_msg (const uint8_t can_mb,const uint32_t CAN_Id, uint32_t *TxDATA);

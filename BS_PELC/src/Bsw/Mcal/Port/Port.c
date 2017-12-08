@@ -9,10 +9,10 @@
 #include "Port.h"
 
 void PORT_init (void) {
-  PCC-> PCCn[PCC_PORTB_INDEX] = PCC_PCCn_CGC_MASK; /* Enable clock for PORT D */
-  PCC-> PCCn[PCC_PORTC_INDEX] = PCC_PCCn_CGC_MASK; /* Enable clock for PORT D */
-  PCC-> PCCn[PCC_PORTD_INDEX] = PCC_PCCn_CGC_MASK; /* Enable clock for PORT D */
-  PCC-> PCCn[PCC_PORTE_INDEX] = PCC_PCCn_CGC_MASK; /* Enable clock for PORT D */
+  PCC-> PCCn[PCC_PORTB_INDEX] |= PCC_PCCn_CGC_MASK; /* Enable clock for PORT D */
+  PCC-> PCCn[PCC_PORTC_INDEX] |= PCC_PCCn_CGC_MASK; /* Enable clock for PORT D */
+  PCC-> PCCn[PCC_PORTD_INDEX] |= PCC_PCCn_CGC_MASK; /* Enable clock for PORT D */
+  PCC-> PCCn[PCC_PORTE_INDEX] |= PCC_PCCn_CGC_MASK; /* Enable clock for PORT D */
 
   PTD->PDDR |= 1<<BlueLed;            /* Port D0:  Data Direction= output */
   PTD->PDDR |= 1<<RedLed;            /* Port D0:  Data Direction= output */
@@ -21,12 +21,12 @@ void PORT_init (void) {
   PORTD->PCR[RedLed] =  0x00000100;  /* Port D0:  MUX = ALT1, GPIO (to blue LED on EVB) */
 
   /*CAN CONFIGURATION*/
-  PORTD->PCR[16] =  0x00000100;     /* Port D16: MUX = GPIO (to green LED) */
+  PORTD->PCR[16] |=  0x00000100;     /* Port D16: MUX = GPIO (to green LED) */
   PORTE->PCR[4] |= PORT_PCR_MUX(5); /* Port E4: MUX = ALT5, CAN0_RX */
   PORTE->PCR[5] |= PORT_PCR_MUX(5); /* Port E5: MUX = ALT5, CAN0_TX */
   PTD->PDDR |= 1<<16;               /* Port D16: Data direction = output */
   /*-------------------------------*/
-  
+
   PTD->PSOR |= 1<<BlueLed;
   PTD->PSOR |= 1<<RedLed;
 
