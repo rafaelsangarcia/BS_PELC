@@ -20,6 +20,13 @@ void PORT_init (void) {
   PORTD->PCR[BlueLed] =  0x00000100;  /* Port D0:  MUX = ALT1, GPIO (to blue LED on EVB) */
   PORTD->PCR[RedLed] =  0x00000100;  /* Port D0:  MUX = ALT1, GPIO (to blue LED on EVB) */
 
+  /*CAN CONFIGURATION*/
+  PORTD->PCR[16] =  0x00000100;     /* Port D16: MUX = GPIO (to green LED) */
+  PORTE->PCR[4] |= PORT_PCR_MUX(5); /* Port E4: MUX = ALT5, CAN0_RX */
+  PORTE->PCR[5] |= PORT_PCR_MUX(5); /* Port E5: MUX = ALT5, CAN0_TX */
+  PTD->PDDR |= 1<<16;               /* Port D16: Data direction = output */
+  /*-------------------------------*/
+  
   PTD->PSOR |= 1<<BlueLed;
   PTD->PSOR |= 1<<RedLed;
 

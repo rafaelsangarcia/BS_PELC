@@ -9,10 +9,15 @@
 #include "Nvic.h"
 #include "Mcu.h"
 #include "SchM.h"
+#include "clocks_and_modes.h"
 
 int main(void)
 {
+
+
+
 	WDOG_disable();
+	FLEXCAN0_init();         /* Init FlexCAN0 */
 	PORT_init();             				/* Configure ports */
 	SOSC_init_8MHz();        				/* Initialize system oscilator for 8 MHz xtal */
 	SPLL_init_160MHz();      				/* Initialize SPLL to 160 MHz with 8 MHz SOSC */
@@ -20,6 +25,7 @@ int main(void)
 	NVIC_init_IRQs();        				/* Enable desired interrupts and priorities */
 	SchM_Init(&SchedulerConfig);			/* Scheduler Services Initialization */
 	SchM_Start();							/* Start Scheduler Services */
+
 
 	/* Further code should not be reached */
 	for(;;) {

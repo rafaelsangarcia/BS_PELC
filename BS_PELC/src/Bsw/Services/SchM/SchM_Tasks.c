@@ -46,6 +46,7 @@
 /* Includes */
 #include "SchM_Tasks.h"
 #include "Dio.h"
+#include "communication.h"
 
 /*============================================================================*/
 
@@ -74,13 +75,14 @@
 
 /* Exported functions */
 void SchM_3p125ms_Task ( void ){
-	Dio_PortTooglePin(PORTCH_C, LedBar_1);
-	for(counter_1=0; counter_1 <= Cycles; counter_1++){}
+	test();
 }
+/*
 void SchM_6p25ms_Task ( void ){
 	Dio_PortTooglePin(PORTCH_B, LedBar_2);
 	for(counter_2=0; counter_2 <= Cycles; counter_2++){}
 }
+
 void SchM_12p5ms_Task ( void ){
 	Dio_PortTooglePin(PORTCH_B, LedBar_3);
 	for(counter_3=0; counter_3 <= Cycles; counter_3++){}
@@ -96,7 +98,7 @@ void SchM_50ms_Task ( void ){
 void SchM_100ms_Task ( void ){
 	Dio_PortTooglePin(PORTCH_C, LedBar_6);
 	for(counter_6=0;counter_6 <= Cycles; counter_6++){}
-}
+}*/
 /*============================================================================*/
 
  /* Notice: the file ends with a blank new line to avoid compiler warnings */
