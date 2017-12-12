@@ -16,7 +16,7 @@
     detailed
     multiline
     description of the file
-*/
+ */
 /*============================================================================*/
 /* COPYRIGHT (C) CONTINENTAL AUTOMOTIVE 2014                                  */
 /* AUTOMOTIVE GROUP, Interior Division, Body and Security                     */
@@ -56,6 +56,10 @@
 /*============================================================================*/
 
 /* Variables */
+unsigned char  *ptr_rx, *ptr_struct;
+int i;
+uint32_t address = 0, address_ptr = 0;
+bytes_struct rx_bytes;
 /*============================================================================*/
 
 /* Private functions prototypes */
@@ -73,29 +77,60 @@
  This function checks if the limitation algorithm allows or not
  a certain activation of the motors.
  \returns TRUE if the activation is allowed, FALSE if not
-*/
+ */
 
 /* Exported functions */
 void SchM_3p125ms_Task ( void ){
 
+
+
+
 	if ((CAN0->IFLAG1 >> 4) & 1)
 	{  /* If CAN 0 MB 4 flag is set (received msg), read MB4 */
 		FLEXCAN0_receive_msg (4,rx_msg_data);      /* Read message */
-		PTD->PTOR |= 1<<16;         /*   toggle output port D16 (Green LED) */
+		ptr_rx = rx_msg_data;
+		ptr_rx = ptr_rx + 3;
+
+		ptr_struct = &rx_bytes;
+		ptr_struct = ptr_struct;
+
+		for (i = 0 ; i < 8; i++){
+			if ( i == 4 ){
+				ptr_rx = ptr_rx + 8;
+			}
+			*ptr_struct = *ptr_rx;
+			ptr_struct++;
+			ptr_rx--;
+		}
+
+		ptr_struct = &rx_bytes;
+
+		for (i = 0; i < rx_bytes.byte1; i++ ){
+			if ( *(ptr_struct + 1 + i) == 0x01){
+				PTD->PCOR |= 1<<15;
+				PTD->PSOR |= 1<<16;
+			}
+			else if (*(ptr_struct + 1 + i)  == 0x14){
+				PTD->PSOR |= 1<<15;
+				PTD->PCOR |= 1<<16;
+			}
+
+		}
 		tx_msg_data[0]=rx_msg_data[0];
 		tx_msg_data[1]=rx_msg_data[1];
 		FLEXCAN0_transmit_msg (0,0x15540000,tx_msg_data);     /* MB0 word 1: Tx msg with STD ID 0x555 */
+
 	}
 
 	if ((CAN0->IFLAG1 >> 1) & 1)
-    {  /* If CAN 0 MB 4 flag is set (received msg), read MB4 */
-      FLEXCAN0_receive_msg (1,rx_msg_data);      /* Read message */
+	{  /* If CAN 0 MB 4 flag is set (received msg), read MB4 */
+		FLEXCAN0_receive_msg (1,rx_msg_data);      /* Read message */
 
-      PTD->PTOR &= (~(1<<16));         /*   toggle output port D16 (Green LED) */
-      tx_msg_data[0]=rx_msg_data[0];
-      tx_msg_data[1]=rx_msg_data[1];
-      FLEXCAN0_transmit_msg (2,0x04100000,tx_msg_data );     /* MB0 word 1: Tx msg with STD ID 0x511  */
-    }
+		//PTD->PTOR &= (~(1<<16));         /*   toggle output port D16 (Green LED) */
+		tx_msg_data[0]=rx_msg_data[0];
+		tx_msg_data[1]=rx_msg_data[1];
+		FLEXCAN0_transmit_msg (2,0x04100000,tx_msg_data );     /* MB0 word 1: Tx msg with STD ID 0x511  */
+	}
 }
 /*
 void SchM_6p25ms_Task ( void ){
@@ -121,4 +156,4 @@ void SchM_100ms_Task ( void ){
 }*/
 /*============================================================================*/
 
- /* Notice: the file ends with a blank new line to avoid compiler warnings */
+/* Notice: the file ends with a blank new line to avoid compiler warnings */

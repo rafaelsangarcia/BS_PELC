@@ -56,6 +56,17 @@
 /* Constants and types */
 //#define Cycles (uint32_t)2000
 
+typedef struct
+{
+  unsigned char byte1;
+  unsigned char byte2;
+  unsigned char byte3;
+  unsigned char byte4;
+  unsigned char byte5;
+  unsigned char byte6;
+  unsigned char byte7;
+  unsigned char byte8;
+}bytes_struct;
 /*============================================================================*/
 
 /* Exported Variables */
