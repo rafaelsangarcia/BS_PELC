@@ -4,10 +4,10 @@
 /*                        OBJECT SPECIFICATION                                */
 /*============================================================================*/
 /*!
- * $Source: SchM_Cfg.c
+ * $Source: CAN_message.h
  * $Revision: 1
- * $Author: Rodrigo Mortera
- * $Date: 17/NOV/2017
+ * $Author: Rafael Sanchez
+ * $Date: 12/DIC/2017
  */
 /*============================================================================*/
 /* DESCRIPTION :                                                              */
@@ -34,19 +34,18 @@
 /*============================================================================*/
 /*  Author           |        Version     |           DESCRIPTION             */
 /*----------------------------------------------------------------------------*/
-/*  Rodrigo Mortera   |      1             |  Use the template and add the code*/
+/*  Rafael Sanchez   |      1             |  Add Prototype for Hazard and turn*/
 /*============================================================================*/
 /*                               OBJECT HISTORY                               */
 /*============================================================================*/
 /*
  *
- * SchM_Cfg.c
+ * SchM_Cfg.h
  *
  *  Created on: 15/11/2017
  *      Author: uid87753
  */
  /* ============================================================================*/
-
  #ifndef BSW_SERVICES_CAN_CAN_TYPES_H_
  #define BSW_SERVICES_CAN_CAN_TYPES_H_
 
@@ -58,7 +57,8 @@
 #include "General.h"
 /*============================================================================*/
 
-/* Constants and types  */
+
+/* Constants and types */
 typedef struct
 {
   unsigned char byte1;
@@ -71,29 +71,18 @@ typedef struct
   unsigned char byte8;
 }bytes_struct;
 /*============================================================================*/
-/* Variables */
+
+
+/* Exported Variables */
 unsigned char  *ptr_rx, *ptr_struct;
 bytes_struct rx_bytes;
 /*============================================================================*/
-/* Private functions prototypes */
+
+
+/* Exported functions prototypes */
 void CAN_message_void_fillStruct();
 void test_void();
-void CAN_message_void_Turn();
+void CAN_message_void_TurnBehavior();
+void CAN_message_void_Hazard();
 /*============================================================================*/
-
-/* Inline functions */
-/*============================================================================*/
-
-
-
-
-/* Private functions */
-/*============================================================================*/
-
-
-/* Exported functions */
-/*============================================================================*/
-
-#endif /* BSW_SERVICES_SCHM_SCHM_TASKS_H_ */
-
- /* Notice: the file ends with a blank new line to avoid compiler warnings */
+#endif /* BSW_SERVICES_SCHM_SCHM_CFG_H_ */

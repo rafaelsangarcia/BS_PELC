@@ -5,9 +5,9 @@
 /*============================================================================*/
 /*!
  ** $Source: SchM_Tasks.c $
- * $Revision: version 2 $
+ * $Revision: version 3 $
  * $Author: Rafael Sanchez $
- * $Date: 17/Nov/2017 $
+ * $Date: 12/Dic/2017 $
  */
 /*============================================================================*/
 /* DESCRIPTION :                                                              */
@@ -36,6 +36,7 @@
 /*----------------------------------------------------------------------------*/
 /*  Rafael Sanchez   |      1             |  Use the template and add the code*/
 /*  Rafael Sanchez   |      2             | Fill each task turning on/off leds*/
+/*  Rafael Sanchez   |      3             | Test Hazard and turn lights				*/
 /*============================================================================*/
 /*                               OBJECT HISTORY                               */
 /*============================================================================*/
@@ -49,7 +50,6 @@
 #include "FlexCAN.h"
 #include "General.h"
 #include "Port.h"
-
 #include "CAN_message.h"
 
 /*============================================================================*/
@@ -102,7 +102,8 @@ void SchM_3p125ms_Task ( void ){
 	}
 
 	CAN_message_void_fillStruct();
-	CAN_message_void_Turn();
+	//CAN_message_void_TurnBehavior();
+	CAN_message_void_Hazard();
 }
 /*
 void SchM_6p25ms_Task ( void ){

@@ -6,8 +6,8 @@
 /*!
  * $Source: SchM_Cfg.c
  * $Revision: 1
- * $Author: Rodrigo Mortera
- * $Date: 17/NOV/2017
+ * $Author: Rafael Sanchez
+ * $Date: 12/Dic/2017
  */
 /*============================================================================*/
 /* DESCRIPTION :                                                              */
@@ -34,13 +34,12 @@
 /*============================================================================*/
 /*  Author           |        Version     |           DESCRIPTION             */
 /*----------------------------------------------------------------------------*/
-/*  Rodrigo Mortera   |      1             |  Use the template and add the code*/
+/*  Rafael Sanchez   |      1             |  Create Hazard and turn functions*/
 /*============================================================================*/
 /*                               OBJECT HISTORY                               */
 /*============================================================================*/
 /*
  *
- * SchM_Cfg.c
  *
  *  Created on: 15/11/2017
  *      Author: uid87753
@@ -49,44 +48,117 @@
 
 /* Includes */
 #include "CAN_message.h"
-
-
 /*============================================================================*/
-
-
-
 /* Constants and types  */
-
 /*============================================================================*/
-
-
-
 /* Variables */
 int i = 0;
 unsigned char mode = 0;
 int cont_1 = 0;
 unsigned char params[3];
 int time_on, time_off = 0;
-
 /*============================================================================*/
-
-
-
 /* Private functions prototypes */
+void CAN_message_void_fillParams();
+void CAN_message_void_Turn_Right();
+void CAN_message_void_Turn_Left();
 /*============================================================================*/
-
-
-
 /* Inline functions */
 /*============================================================================*/
-
-
-
-
 /* Private functions */
+void CAN_message_void_fillParams(){
+  ptr_struct= &rx_bytes;
+  for(i = 0; i < rx_bytes.byte1; i++){
+    params[i] = *(ptr_struct + 1 + i);
+  }
+}
+
+void CAN_message_void_Turn_Right(){
+  switch(mode){
+    case 0:
+      PTC->PSOR |= 1<<LedBar_1;
+      cont_1++;
+      if(cont_1 >= time_on){
+        mode = 1;
+        cont_1 = 0;
+      }
+      else {
+        mode = 0;
+      }
+      break;
+
+    case 1:
+      PTC->PCOR |= 1<<LedBar_1;
+      cont_1++;
+      if(cont_1 >= time_off){
+        mode = 0;
+        cont_1 = 0;
+      }
+      else {
+        mode = 1;
+      }
+      break;
+  }
+}
+
+void CAN_message_void_Turn_Left(){
+  switch(mode){
+    case 0:
+      PTC->PSOR |= 1<<LedBar_6;
+      cont_1++;
+      if(cont_1 >= time_on){
+        mode = 1;
+        cont_1 = 0;
+      }
+      else {
+        mode = 0;
+      }
+      break;
+
+    case 1:
+      PTC->PCOR |= 1<<LedBar_6;
+      cont_1++;
+      if(cont_1 >= time_off){
+        mode = 0;
+        cont_1 = 0;
+      }
+      else {
+        mode = 1;
+      }
+      break;
+  }
+}
+
+void CAN_message_void_Hazard_ON(){
+  switch(mode){
+    case 0:
+      PTC->PCOR |= 1<<LedBar_1;
+      PTC->PCOR |= 1<<LedBar_6;
+      cont_1++;
+      if(cont_1 >= time_on){
+        mode = 1;
+        cont_1 = 0;
+      }
+      else {
+        mode = 0;
+      }
+      break;
+
+    case 1:
+      PTC->PSOR |= 1<<LedBar_1;
+      PTC->PSOR |= 1<<LedBar_6;
+      cont_1++;
+      if(cont_1 >= time_off){
+        mode = 0;
+        cont_1 = 0;
+      }
+      else {
+        mode = 1;
+      }
+      break;
+  }
+}
 /*============================================================================*/
-
-
 /* Exported functions */
 void CAN_message_void_fillStruct(){
   ptr_rx = rx_msg_data;
@@ -118,79 +190,41 @@ void test_void() {
   }
 }
 
-void CAN_message_void_Turn(){
-  ptr_struct= &rx_bytes;
-  for(i = 0; i < rx_bytes.byte1; i++){
-    params[i] = *(ptr_struct + 1 + i);
-  }
+void CAN_message_void_TurnBehavior(){
+  CAN_message_void_fillParams();
   time_on = params[1] * 100;
   time_off = params[2] * 100;
   switch(params[0]){
     case 0x01:
     PTC->PCOR |= 1<<LedBar_1;
-    PTB->PCOR |= 1<<LedBar_2;
+    PTC->PCOR |= 1<<LedBar_6;
     break;
 
     case 0x0A:
-      switch(mode){
-        case 0:
-          PTC->PSOR |= 1<<LedBar_1;
-          cont_1++;
-          if(cont_1 >= time_on){
-            mode = 1;
-            cont_1 = 0;
-          }
-          else {
-            mode = 0;
-          }
-          break;
-
-        case 1:
-          PTC->PCOR |= 1<<LedBar_1;
-          cont_1++;
-          if(cont_1 >= time_off){
-            mode = 0;
-            cont_1 = 0;
-          }
-          else {
-            mode = 1;
-          }
-          break;
-      }
+      CAN_message_void_Turn_Right();
     break;
 
     case 0x0B:
-    switch(mode){
-      case 0:
-        PTC->PSOR |= 1<<LedBar_6;
-        cont_1++;
-        if(cont_1 >= time_on){
-          mode = 1;
-          cont_1 = 0;
-        }
-        else {
-          mode = 0;
-        }
-        break;
-
-      case 1:
-        PTC->PCOR |= 1<<LedBar_6;
-        cont_1++;
-        if(cont_1 >= time_off){
-          mode = 0;
-          cont_1 = 0;
-        }
-        else {
-          mode = 1;
-        }
-        break;
-    }
+      CAN_message_void_Turn_Left();
     break;
-
   }
 }
+
+void CAN_message_void_Hazard(){
+  CAN_message_void_fillParams();
+  time_on = params[1] * 100;
+  time_off = params[2] * 100;
+  switch(params[0]){
+    case 0x00:
+    PTC->PCOR |= 1<<LedBar_1;
+    PTC->PCOR |= 1<<LedBar_6;
+    break;
+
+    case 0x0F:
+      CAN_message_void_Hazard_ON();
+    break;
+  }
+}
+
 /*============================================================================*/
-
-
-
  /* Notice: the file ends with a blank new line to avoid compiler warnings */
