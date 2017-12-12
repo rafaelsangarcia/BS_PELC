@@ -62,7 +62,7 @@ typedef enum{
 } Schm_TaskOffsetType;
 
 typedef enum{
-	SCHM_MASK_3P125MS = 0x03,
+	SCHM_MASK_3P125MS = 0x01,
 }SchM_TaskMaskType;
 
 typedef enum {

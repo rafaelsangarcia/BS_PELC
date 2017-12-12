@@ -78,6 +78,7 @@ bytes_struct rx_bytes;
 /* Private functions prototypes */
 void CAN_message_void_fillStruct();
 void test_void();
+void CAN_message_void_Turn();
 /*============================================================================*/
 
 /* Inline functions */

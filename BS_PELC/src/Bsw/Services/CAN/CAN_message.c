@@ -63,6 +63,11 @@
 
 /* Variables */
 int i = 0;
+unsigned char mode = 0;
+int cont_1 = 0;
+unsigned char params[3];
+int time_on, time_off = 0;
+
 /*============================================================================*/
 
 
@@ -88,7 +93,6 @@ void CAN_message_void_fillStruct(){
   ptr_rx = ptr_rx + 3;
 
   ptr_struct = &rx_bytes;
-  ptr_struct = ptr_struct;
 
   for (i = 0 ; i < 8; i++){
     if ( i == 4 ){
@@ -111,6 +115,78 @@ void test_void() {
       PTD->PSOR |= 1<<15;
       PTD->PCOR |= 1<<16;
     }
+  }
+}
+
+void CAN_message_void_Turn(){
+  ptr_struct= &rx_bytes;
+  for(i = 0; i < rx_bytes.byte1; i++){
+    params[i] = *(ptr_struct + 1 + i);
+  }
+  time_on = params[1] * 100;
+  time_off = params[2] * 100;
+  switch(params[0]){
+    case 0x01:
+    PTC->PCOR |= 1<<LedBar_1;
+    PTB->PCOR |= 1<<LedBar_2;
+    break;
+
+    case 0x0A:
+      switch(mode){
+        case 0:
+          PTC->PSOR |= 1<<LedBar_1;
+          cont_1++;
+          if(cont_1 >= time_on){
+            mode = 1;
+            cont_1 = 0;
+          }
+          else {
+            mode = 0;
+          }
+          break;
+
+        case 1:
+          PTC->PCOR |= 1<<LedBar_1;
+          cont_1++;
+          if(cont_1 >= time_off){
+            mode = 0;
+            cont_1 = 0;
+          }
+          else {
+            mode = 1;
+          }
+          break;
+      }
+    break;
+
+    case 0x0B:
+    switch(mode){
+      case 0:
+        PTC->PSOR |= 1<<LedBar_6;
+        cont_1++;
+        if(cont_1 >= time_on){
+          mode = 1;
+          cont_1 = 0;
+        }
+        else {
+          mode = 0;
+        }
+        break;
+
+      case 1:
+        PTC->PCOR |= 1<<LedBar_6;
+        cont_1++;
+        if(cont_1 >= time_off){
+          mode = 0;
+          cont_1 = 0;
+        }
+        else {
+          mode = 1;
+        }
+        break;
+    }
+    break;
+
   }
 }
 /*============================================================================*/
