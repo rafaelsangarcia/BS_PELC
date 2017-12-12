@@ -4,10 +4,10 @@
 /*                        OBJECT SPECIFICATION                                */
 /*============================================================================*/
 /*!
- ** $Source: SchM_Tasks.c $
- * $Revision: version 2 $
- * $Author: Rafael Sanchez $
- * $Date: 17/Nov/2017 $
+ * $Source: SchM_Cfg.c
+ * $Revision: 1
+ * $Author: Rodrigo Mortera
+ * $Date: 17/NOV/2017
  */
 /*============================================================================*/
 /* DESCRIPTION :                                                              */
@@ -16,7 +16,7 @@
     detailed
     multiline
     description of the file
- */
+*/
 /*============================================================================*/
 /* COPYRIGHT (C) CONTINENTAL AUTOMOTIVE 2014                                  */
 /* AUTOMOTIVE GROUP, Interior Division, Body and Security                     */
@@ -34,94 +34,65 @@
 /*============================================================================*/
 /*  Author           |        Version     |           DESCRIPTION             */
 /*----------------------------------------------------------------------------*/
-/*  Rafael Sanchez   |      1             |  Use the template and add the code*/
-/*  Rafael Sanchez   |      2             | Fill each task turning on/off leds*/
+/*  Rodrigo Mortera   |      1             |  Use the template and add the code*/
 /*============================================================================*/
 /*                               OBJECT HISTORY                               */
 /*============================================================================*/
 /*
- * $Log: filename.c  $
-  ============================================================================*/
+ *
+ * SchM_Cfg.c
+ *
+ *  Created on: 15/11/2017
+ *      Author: uid87753
+ */
+ /* ============================================================================*/
+
+ #ifndef BSW_SERVICES_CAN_CAN_TYPES_H_
+ #define BSW_SERVICES_CAN_CAN_TYPES_H_
 
 /* Includes */
-#include "SchM_Tasks.h"
-#include "Dio.h"
+#include "Std_Types.h"
 #include "FlexCAN.h"
-#include "General.h"
+#include "Dio.h"
 #include "Port.h"
-
-#include "CAN_message.h"
-
+#include "General.h"
 /*============================================================================*/
 
 /* Constants and types  */
+typedef struct
+{
+  unsigned char byte1;
+  unsigned char byte2;
+  unsigned char byte3;
+  unsigned char byte4;
+  unsigned char byte5;
+  unsigned char byte6;
+  unsigned char byte7;
+  unsigned char byte8;
+}bytes_struct;
 /*============================================================================*/
-
 /* Variables */
+unsigned char  *ptr_rx, *ptr_struct;
+bytes_struct rx_bytes;
 /*============================================================================*/
-
 /* Private functions prototypes */
+void CAN_message_void_fillStruct();
+void test_void();
 /*============================================================================*/
 
 /* Inline functions */
 /*============================================================================*/
 
+
+
+
 /* Private functions */
 /*============================================================================*/
 
-/** Check if action is allowed by overload protection.
- To avoid overheating of the door locking motors and hardware failure
- the software shall limit the number of activations in a short period.
- This function checks if the limitation algorithm allows or not
- a certain activation of the motors.
- \returns TRUE if the activation is allowed, FALSE if not
- */
 
 /* Exported functions */
-void SchM_3p125ms_Task ( void ){
-	if ((CAN0->IFLAG1 >> 4) & 1)
-	{  /* If CAN 0 MB 4 flag is set (received msg), read MB4 */
-		FLEXCAN0_receive_msg (4,rx_msg_data);      /* Read message */
-		CAN_message_void_fillStruct();
-		test_void();
-		tx_msg_data[0]=rx_msg_data[0];
-		tx_msg_data[1]=rx_msg_data[1];
-		FLEXCAN0_transmit_msg (0,0x15540000,tx_msg_data);     /* MB0 word 1: Tx msg with STD ID 0x555 */
-
-	}
-
-	if ((CAN0->IFLAG1 >> 1) & 1)
-	{  /* If CAN 0 MB 4 flag is set (received msg), read MB4 */
-		FLEXCAN0_receive_msg (1,rx_msg_data);      /* Read message */
-
-		//PTD->PTOR &= (~(1<<16));         /*   toggle output port D16 (Green LED) */
-		tx_msg_data[0]=rx_msg_data[0];
-		tx_msg_data[1]=rx_msg_data[1];
-		FLEXCAN0_transmit_msg (2,0x04100000,tx_msg_data );     /* MB0 word 1: Tx msg with STD ID 0x511  */
-	}
-}
-/*
-void SchM_6p25ms_Task ( void ){
-	Dio_PortTooglePin(PORTCH_B, LedBar_2);
-	for(counter_2=0; counter_2 <= Cycles; counter_2++){}
-}
-
-void SchM_12p5ms_Task ( void ){
-	Dio_PortTooglePin(PORTCH_B, LedBar_3);
-	for(counter_3=0; counter_3 <= Cycles; counter_3++){}
-}
-void SchM_25ms_Task ( void ){
-	Dio_PortTooglePin(PORTCH_B, LedBar_4);
-	for(counter_4=0; counter_4 <= Cycles; counter_4++){}
-}
-void SchM_50ms_Task ( void ){
-	Dio_PortTooglePin(PORTCH_B, LedBar_5);
-	for(counter_5=0; counter_5 <= Cycles; counter_5++){}
-}
-void SchM_100ms_Task ( void ){
-	Dio_PortTooglePin(PORTCH_C, LedBar_6);
-	for(counter_6=0;counter_6 <= Cycles; counter_6++){}
-}*/
 /*============================================================================*/
 
-/* Notice: the file ends with a blank new line to avoid compiler warnings */
+#endif /* BSW_SERVICES_SCHM_SCHM_TASKS_H_ */
+
+ /* Notice: the file ends with a blank new line to avoid compiler warnings */
