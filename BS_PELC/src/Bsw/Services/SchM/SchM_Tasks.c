@@ -58,6 +58,7 @@
 /*============================================================================*/
 
 /* Variables */
+int id = 0;
 /*============================================================================*/
 
 /* Private functions prototypes */
@@ -78,36 +79,43 @@
  */
 
 /* Exported functions */
-void SchM_5ms_Task ( void ){
-	if ((CAN0->IFLAG1 >> 4) & 1)
-	{  /* If CAN 0 MB 4 flag is set (received msg), read MB4 */
-		FLEXCAN0_receive_msg (4,rx_msg_data);      /* Read message */
+void SchM_LISTEN_Task ( void ){
+
+	PTC->PTOR |= 1<<LedBar_6;
+
+	/*if ((CAN0->IFLAG1 >> 4) & 1)
+	{
+		FLEXCAN0_receive_msg (4,rx_msg_data);
+		PTD->PTOR &= (~(1<<16));
+
 		tx_msg_data[0]=rx_msg_data[0];
 		tx_msg_data[1]=rx_msg_data[1];
-		FLEXCAN0_transmit_msg (0,0x15540000,tx_msg_data);     /* MB0 word 1: Tx msg with STD ID 0x555 */
+		FLEXCAN0_transmit_msg (0,0x15540000,tx_msg_data);
 		CAN_message_void_fillStruct();
-
+		id = 1;
 	}
-
 	if ((CAN0->IFLAG1 >> 1) & 1)
-	{  /* If CAN 0 MB 4 flag is set (received msg), read MB4 */
-		FLEXCAN0_receive_msg (1,rx_msg_data);      /* Read message */
-
-		//PTD->PTOR &= (~(1<<16));         /*   toggle output port D16 (Green LED) */
+	{
+		FLEXCAN0_receive_msg (1,rx_msg_data);
+		//PTD->PTOR &= (~(1<<16));
 		tx_msg_data[0]=rx_msg_data[0];
 		tx_msg_data[1]=rx_msg_data[1];
-		FLEXCAN0_transmit_msg (2,0x04100000,tx_msg_data );     /* MB0 word 1: Tx msg with STD ID 0x511  */
-	}
-
-	CAN_message_void_fillStruct();
+		FLEXCAN0_transmit_msg (2,0x04100000,tx_msg_data );
+		id = 2;
+	}*/
+	//CAN_message_void_fillStruct();
+	//CAN_message_void_Hazard();
 	//CAN_message_void_TurnBehavior();
-	CAN_message_void_Hazard();
+	//CAN_message_void_Hazard();
+}
+
+void SchM_HAZARD_Task ( void ){
+	PTC->PTOR |= 1<<LedBar_1;
+	/*if (id == 1){
+		CAN_message_void_Hazard();
+	}*/
 }
 /*
-void SchM_6p25ms_Task ( void ){
-	Dio_PortTooglePin(PORTCH_B, LedBar_2);
-	for(counter_2=0; counter_2 <= Cycles; counter_2++){}
-}
 
 void SchM_12p5ms_Task ( void ){
 	Dio_PortTooglePin(PORTCH_B, LedBar_3);

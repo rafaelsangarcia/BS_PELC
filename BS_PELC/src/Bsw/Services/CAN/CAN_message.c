@@ -213,8 +213,8 @@ void CAN_message_void_TurnBehavior(){
 
 void CAN_message_void_Hazard(){
   CAN_message_void_fillParams();
-  time_on = params[1] * 100;
-  time_off = params[2] * 100;
+  time_on = params[1] * 20;
+  time_off = params[2] * 20;
   switch(params[0]){
     case 0x00:
     PTC->PCOR |= 1<<LedBar_1;

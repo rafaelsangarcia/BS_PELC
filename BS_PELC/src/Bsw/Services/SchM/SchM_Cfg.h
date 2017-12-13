@@ -58,16 +58,19 @@
 typedef uint8_t SchM_TaskOffsetType;
 
 typedef enum{
-	SCHM_OFFSET_5MS = (T_UBYTE) 0x00u,
+	SCHM_OFFSET_LISTEN = (T_UBYTE) 0u,
+	SCHM_OFFSET_HAZARD = (T_UBYTE) 1u,
 } Schm_TaskOffsetType;
 
 typedef enum{
-	SCHM_MASK_5MS = 0x01,
+	SCHM_MASK_LISTEN = 9,
+	SCHM_MASK_HAZARD = 19,
 }SchM_TaskMaskType;
 
 typedef enum {
 	SCHM_TASKID_BKG,
-	SCHM_TASKID_5MS,
+	SCHM_TASKID_LISTEN,
+	SCHM_TASKID_HAZARD,
 }SchM_TaskIDType;
 
 typedef struct{

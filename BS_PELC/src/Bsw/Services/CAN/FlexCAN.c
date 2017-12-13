@@ -97,4 +97,3 @@ void FLEXCAN0_receive_msg(const uint8_t can_mb, uint32_t  *RxDATA ) {  /* Receiv
   dummy = CAN0->TIMER;             /* Read TIMER to unlock message buffers */
   CAN0->IFLAG1 = (0x00000001 << can_mb);       /* Clear CAN 0 MB 4 flag without clearing others*/
 }
-
