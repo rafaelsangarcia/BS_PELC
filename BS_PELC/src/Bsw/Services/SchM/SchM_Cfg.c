@@ -58,11 +58,11 @@
 const SchM_TaskConfigType TaskDescriptor[]=
 {
 		{
-				SCHM_TASKID_3P125MS,
-				SCHM_MASK_3P125MS,
-				SCHM_OFFSET_3P125MS,
+				SCHM_TASKID_5MS,
+				SCHM_MASK_5MS,
+				SCHM_OFFSET_5MS,
 				/* ... */
-				SchM_3p125ms_Task
+				SchM_5ms_Task
 		}/*,
 		{
 				SCHM_TASKID_6P25MS,

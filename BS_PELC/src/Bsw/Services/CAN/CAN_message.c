@@ -62,6 +62,7 @@ int time_on, time_off = 0;
 void CAN_message_void_fillParams();
 void CAN_message_void_Turn_Right();
 void CAN_message_void_Turn_Left();
+void CAN_message_void_Hazard_ON();
 /*============================================================================*/
 /* Inline functions */
 /*============================================================================*/
