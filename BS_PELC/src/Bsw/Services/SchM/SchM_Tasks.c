@@ -5,9 +5,9 @@
 /*============================================================================*/
 /*!
  ** $Source: SchM_Tasks.c $
- * $Revision: version 3 $
+ * $Revision: version 4 $
  * $Author: Rafael Sanchez $
- * $Date: 12/Dic/2017 $
+ * $Date: 13/Dic/2017 $
  */
 /*============================================================================*/
 /* DESCRIPTION :                                                              */
@@ -37,6 +37,7 @@
 /*  Rafael Sanchez   |      1             |  Use the template and add the code*/
 /*  Rafael Sanchez   |      2             | Fill each task turning on/off leds*/
 /*  Rafael Sanchez   |      3             | Test Hazard and turn lights				*/
+/*  Rafael Sanchez   |      4	            | Fix Scheduler											*/
 /*============================================================================*/
 /*                               OBJECT HISTORY                               */
 /*============================================================================*/
@@ -81,13 +82,10 @@ int id = 0;
 /* Exported functions */
 void SchM_LISTEN_Task ( void ){
 
-	PTC->PTOR |= 1<<LedBar_6;
 
-	/*if ((CAN0->IFLAG1 >> 4) & 1)
+	if ((CAN0->IFLAG1 >> 4) & 1)
 	{
 		FLEXCAN0_receive_msg (4,rx_msg_data);
-		PTD->PTOR &= (~(1<<16));
-
 		tx_msg_data[0]=rx_msg_data[0];
 		tx_msg_data[1]=rx_msg_data[1];
 		FLEXCAN0_transmit_msg (0,0x15540000,tx_msg_data);
@@ -97,13 +95,12 @@ void SchM_LISTEN_Task ( void ){
 	if ((CAN0->IFLAG1 >> 1) & 1)
 	{
 		FLEXCAN0_receive_msg (1,rx_msg_data);
-		//PTD->PTOR &= (~(1<<16));
 		tx_msg_data[0]=rx_msg_data[0];
 		tx_msg_data[1]=rx_msg_data[1];
 		FLEXCAN0_transmit_msg (2,0x04100000,tx_msg_data );
 		id = 2;
-	}*/
-	//CAN_message_void_fillStruct();
+	}
+	CAN_message_void_fillStruct();
 	//CAN_message_void_Hazard();
 	//CAN_message_void_TurnBehavior();
 	//CAN_message_void_Hazard();
@@ -111,9 +108,9 @@ void SchM_LISTEN_Task ( void ){
 
 void SchM_HAZARD_Task ( void ){
 	PTC->PTOR |= 1<<LedBar_1;
-	/*if (id == 1){
+	if (id == 1){
 		CAN_message_void_Hazard();
-	}*/
+	}
 }
 /*
 

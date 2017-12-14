@@ -4,7 +4,7 @@
 /*                        OBJECT SPECIFICATION                                */
 /*============================================================================*/
 /*!
- * $Source: SchM_Cfg.c
+ * $Source: CAN_message.c
  * $Revision: 1
  * $Author: Rafael Sanchez
  * $Date: 12/Dic/2017
@@ -213,8 +213,8 @@ void CAN_message_void_TurnBehavior(){
 
 void CAN_message_void_Hazard(){
   CAN_message_void_fillParams();
-  time_on = params[1] * 20;
-  time_off = params[2] * 20;
+  time_on = params[1] * 25;
+  time_off = params[2] * 25;
   switch(params[0]){
     case 0x00:
     PTC->PCOR |= 1<<LedBar_1;

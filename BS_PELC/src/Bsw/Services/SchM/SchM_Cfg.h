@@ -5,9 +5,9 @@
 /*============================================================================*/
 /*!
  * $Source: SchM_Cfg.h
- * $Revision: 1
- * $Author: Rodrigo Mortera
- * $Date: 17/NOV/2017
+ * $Revision: 2
+ * $Author: Rafael Sanchez
+ * $Date: 13/DIC/2017
  */
 /*============================================================================*/
 /* DESCRIPTION :                                                              */
@@ -35,6 +35,7 @@
 /*  Author           |        Version     |           DESCRIPTION             */
 /*----------------------------------------------------------------------------*/
 /*  Rodrigo Mortera   |      1             |  Use the template and add the code*/
+/*  Roafael Sanchez   |      2             |  test different mask 						*/
 /*============================================================================*/
 /*                               OBJECT HISTORY                               */
 /*============================================================================*/
@@ -63,8 +64,8 @@ typedef enum{
 } Schm_TaskOffsetType;
 
 typedef enum{
-	SCHM_MASK_LISTEN = 9,
-	SCHM_MASK_HAZARD = 19,
+	SCHM_MASK_LISTEN = 3,
+	SCHM_MASK_HAZARD = 7,
 }SchM_TaskMaskType;
 
 typedef enum {
