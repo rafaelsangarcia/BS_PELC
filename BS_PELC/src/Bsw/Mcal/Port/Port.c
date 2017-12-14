@@ -16,9 +16,11 @@ void PORT_init (void) {
 
   PTD->PDDR |= 1<<BlueLed;            /* Port D0:  Data Direction= output */
   PTD->PDDR |= 1<<RedLed;            /* Port D0:  Data Direction= output */
+  PTD->PDDR |= 1<<GreenLed;            /* Port D0:  Data Direction= output */
 
   PORTD->PCR[BlueLed] =  0x00000100;  /* Port D0:  MUX = ALT1, GPIO (to blue LED on EVB) */
   PORTD->PCR[RedLed] =  0x00000100;  /* Port D0:  MUX = ALT1, GPIO (to blue LED on EVB) */
+  PORTD->PCR[GreenLed] =  0x00000100;  /* Port D0:  MUX = ALT1, GPIO (to blue LED on EVB) */
 
   /*CAN CONFIGURATION*/
   PORTD->PCR[16] |=  0x00000100;     /* Port D16: MUX = GPIO (to green LED) */
@@ -29,6 +31,7 @@ void PORT_init (void) {
 
   PTD->PSOR |= 1<<BlueLed;
   PTD->PSOR |= 1<<RedLed;
+  PTD->PSOR |= 1<<GreenLed;
 
   /*LedBars*/
   PTC->PDDR |= 1<<LedBar_1;

@@ -81,8 +81,6 @@ int id = 0;
 
 /* Exported functions */
 void SchM_LISTEN_Task ( void ){
-
-
 	if ((CAN0->IFLAG1 >> 4) & 1)
 	{
 		FLEXCAN0_receive_msg (4,rx_msg_data);
@@ -107,7 +105,7 @@ void SchM_LISTEN_Task ( void ){
 }
 
 void SchM_HAZARD_Task ( void ){
-	PTC->PTOR |= 1<<LedBar_1;
+	//PTC->PTOR |= 1<<LedBar_1;
 	if (id == 1){
 		CAN_message_void_Hazard();
 	}
