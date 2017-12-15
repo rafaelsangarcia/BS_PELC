@@ -74,8 +74,9 @@ typedef struct
 
 
 /* Exported Variables */
-unsigned char  *ptr_rx, *ptr_struct;
+unsigned char  *ptr_rx, *ptr_struct, *ptr_hazard, *ptr_turn;
 bytes_struct rx_bytes, hazardStruct, listenStruct, turnStruct;
+unsigned char params[3], params2[3], params3[3];
 /*============================================================================*/
 
 
