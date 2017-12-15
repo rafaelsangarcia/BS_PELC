@@ -5,9 +5,9 @@
 /*============================================================================*/
 /*!
  ** $Source: SchM_Tasks.c $
- * $Revision: version 4 $
+ * $Revision: version 5 $
  * $Author: Rafael Sanchez $
- * $Date: 13/Dic/2017 $
+ * $Date: 15/Dic/2017 $
  */
 /*============================================================================*/
 /* DESCRIPTION :                                                              */
@@ -37,7 +37,8 @@
 /*  Rafael Sanchez   |      1             |  Use the template and add the code*/
 /*  Rafael Sanchez   |      2             | Fill each task turning on/off leds*/
 /*  Rafael Sanchez   |      3             | Test Hazard and turn lights				*/
-/*  Rafael Sanchez   |      4	            | Fix Scheduler											*/
+/*  Rafael Sanchez   |      4	          | Fix Scheduler	   				  */
+/*  Rafael Sanchez   |      5	          | Fix Scheduler v2   				  */
 /*============================================================================*/
 /*                               OBJECT HISTORY                               */
 /*============================================================================*/
