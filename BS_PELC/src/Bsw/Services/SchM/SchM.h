@@ -55,7 +55,7 @@
 /*============================================================================*/
 
 /* Constants and types */
-#define NUM_OF_TASKS (0x2)
+#define NUM_OF_TASKS (0x3)
 
 const SchM_ConfigType *GlbSchMConfig;
 

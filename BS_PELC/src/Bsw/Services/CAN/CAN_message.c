@@ -74,10 +74,25 @@ void CAN_message_void_fillParams(){
   }
 }
 
+void CAN_message_void_fillParams2(){
+  ptr_struct= &hazardStruct;
+  for(i = 0; i < hazardStruct.byte1; i++){
+    params[i] = *(ptr_struct + 1 + i);
+  }
+}
+
+void CAN_message_void_fillParams3(){
+  ptr_struct= &turnStruct;
+  for(i = 0; i < turnStruct.byte1; i++){
+    params[i] = *(ptr_struct + 1 + i);
+  }
+}
+
 void CAN_message_void_Turn_Right(){
   switch(mode){
     case 0:
-      PTC->PSOR |= 1<<LedBar_1;
+      PTB->PCOR |= 1<<LedBar_3;
+
       cont_1++;
       if(cont_1 >= time_on){
         mode = 1;
@@ -89,7 +104,8 @@ void CAN_message_void_Turn_Right(){
       break;
 
     case 1:
-      PTC->PCOR |= 1<<LedBar_1;
+      PTB->PSOR |= 1<<LedBar_3;
+
       cont_1++;
       if(cont_1 >= time_off){
         mode = 0;
@@ -105,7 +121,7 @@ void CAN_message_void_Turn_Right(){
 void CAN_message_void_Turn_Left(){
   switch(mode){
     case 0:
-      PTC->PSOR |= 1<<LedBar_6;
+      PTB->PSOR |= 1<<LedBar_2;
       cont_1++;
       if(cont_1 >= time_on){
         mode = 1;
@@ -117,7 +133,7 @@ void CAN_message_void_Turn_Left(){
       break;
 
     case 1:
-      PTC->PCOR |= 1<<LedBar_6;
+      PTB->PCOR |= 1<<LedBar_2;
       cont_1++;
       if(cont_1 >= time_off){
         mode = 0;
@@ -177,6 +193,38 @@ void CAN_message_void_fillStruct(){
   }
 }
 
+void CAN_message_void_fill_HazardStruct(){
+  ptr_rx = rx_msg_data;
+  ptr_rx = ptr_rx + 3;
+
+  ptr_struct = &hazardStruct;
+
+  for (i = 0 ; i < 8; i++){
+    if ( i == 4 ){
+      ptr_rx = ptr_rx + 8;
+    }
+    *ptr_struct = *ptr_rx;
+    ptr_struct++;
+    ptr_rx--;
+  }
+}
+
+void CAN_message_void_fill_TurnStruct(){
+  ptr_rx = rx_msg_data;
+  ptr_rx = ptr_rx + 3;
+
+  ptr_struct = &turnStruct;
+
+  for (i = 0 ; i < 8; i++){
+    if ( i == 4 ){
+      ptr_rx = ptr_rx + 8;
+    }
+    *ptr_struct = *ptr_rx;
+    ptr_struct++;
+    ptr_rx--;
+  }
+}
+
 void test_void() {
   ptr_struct = &rx_bytes;
   for (i = 0; i < rx_bytes.byte1; i++ ){
@@ -193,12 +241,12 @@ void test_void() {
 
 void CAN_message_void_TurnBehavior(){
   CAN_message_void_fillParams();
-  time_on = params[1] * 100;
-  time_off = params[2] * 100;
+  time_on = params[1] * 25;
+  time_off = params[2] * 25;
   switch(params[0]){
     case 0x01:
-    PTC->PCOR |= 1<<LedBar_1;
-    PTC->PCOR |= 1<<LedBar_6;
+    PTB->PCOR |= 1<<LedBar_2;
+    PTB->PCOR |= 1<<LedBar_3;
     break;
 
     case 0x0A:

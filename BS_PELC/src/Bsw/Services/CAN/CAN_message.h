@@ -75,12 +75,15 @@ typedef struct
 
 /* Exported Variables */
 unsigned char  *ptr_rx, *ptr_struct;
-bytes_struct rx_bytes;
+bytes_struct rx_bytes, hazardStruct, listenStruct, turnStruct;
 /*============================================================================*/
 
 
 /* Exported functions prototypes */
 void CAN_message_void_fillStruct();
+void CAN_message_void_fill_ListenStruct();
+void CAN_message_void_fill_HazardStruct();
+void CAN_message_void_fill_TurnStruct();
 void test_void();
 void CAN_message_void_TurnBehavior();
 void CAN_message_void_Hazard();

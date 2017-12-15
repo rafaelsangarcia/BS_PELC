@@ -69,13 +69,13 @@ const SchM_TaskConfigType TaskDescriptor[]=
 				SCHM_MASK_HAZARD,
 				SCHM_OFFSET_HAZARD,
 				SchM_HAZARD_Task
-		}/*,
-		{
-				SCHM_TASKID_12P5MS,
-				SCHM_MASK_12P5MS,
-				SCHM_OFFSET_12P5MS,
-				SchM_12p5ms_Task
 		},
+		{
+				SCHM_TASKID_TURN,
+				SCHM_MASK_TURN,
+				SCHM_OFFSET_TURN,
+				SchM_TURN_Task
+		}/*,
 		{
 				SCHM_TASKID_25MS,
 				SCHM_MASK_25MS,

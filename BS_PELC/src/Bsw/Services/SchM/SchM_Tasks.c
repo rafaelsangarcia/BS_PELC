@@ -104,11 +104,31 @@ void SchM_LISTEN_Task ( void ){
 	//CAN_message_void_Hazard();
 }
 
-void SchM_HAZARD_Task ( void ){
+void SchM_HAZARD_Task(void){
 	//PTC->PTOR |= 1<<LedBar_1;
-	if (id == 1){
-		CAN_message_void_Hazard();
+	if ((CAN0->IFLAG1 >> 4) & 1)
+	{
+		FLEXCAN0_receive_msg (4,rx_msg_data);
+		tx_msg_data[0]=rx_msg_data[0];
+		tx_msg_data[1]=rx_msg_data[1];
+		CAN_message_void_fill_HazardStruct();
+		FLEXCAN0_transmit_msg (0,0x15540000,tx_msg_data);
 	}
+	CAN_message_void_Hazard();
+}
+
+void SchM_TURN_Task(void){
+
+	if ((CAN0->IFLAG1 >> 1) & 1)
+	{
+		FLEXCAN0_receive_msg (1,rx_msg_data);
+		tx_msg_data[0]=rx_msg_data[0];
+		tx_msg_data[1]=rx_msg_data[1];
+		CAN_message_void_fill_TurnStruct();
+		FLEXCAN0_transmit_msg (2,0x04100000,tx_msg_data );
+	}
+	CAN_message_void_TurnBehavior();
+
 }
 /*
 
