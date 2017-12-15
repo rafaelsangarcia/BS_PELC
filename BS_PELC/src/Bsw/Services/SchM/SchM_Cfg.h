@@ -5,9 +5,9 @@
 /*============================================================================*/
 /*!
  * $Source: SchM_Cfg.h
- * $Revision: 1
- * $Author: Rodrigo Mortera
- * $Date: 17/NOV/2017
+ * $Revision: 2
+ * $Author: Rafael Sanchez
+ * $Date: 13/DIC/2017
  */
 /*============================================================================*/
 /* DESCRIPTION :                                                              */
@@ -35,6 +35,7 @@
 /*  Author           |        Version     |           DESCRIPTION             */
 /*----------------------------------------------------------------------------*/
 /*  Rodrigo Mortera   |      1             |  Use the template and add the code*/
+/*  Roafael Sanchez   |      2             |  test different mask 						*/
 /*============================================================================*/
 /*                               OBJECT HISTORY                               */
 /*============================================================================*/
@@ -58,16 +59,23 @@
 typedef uint8_t SchM_TaskOffsetType;
 
 typedef enum{
-	SCHM_OFFSET_5MS = (T_UBYTE) 0x00u,
+	SCHM_OFFSET_LISTEN = (T_UBYTE) 0u,
+	SCHM_OFFSET_HAZARD = (T_UBYTE) 1u,
+	SCHM_OFFSET_TURN = (T_UBYTE) 2u,
+
 } Schm_TaskOffsetType;
 
 typedef enum{
-	SCHM_MASK_5MS = 0x01,
+	SCHM_MASK_LISTEN = 3,
+	SCHM_MASK_HAZARD = 7,
+	SCHM_MASK_TURN = 15,
 }SchM_TaskMaskType;
 
 typedef enum {
 	SCHM_TASKID_BKG,
-	SCHM_TASKID_5MS,
+	SCHM_TASKID_LISTEN,
+	SCHM_TASKID_HAZARD,
+	SCHM_TASKID_TURN,
 }SchM_TaskIDType;
 
 typedef struct{

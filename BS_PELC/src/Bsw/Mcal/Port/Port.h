@@ -13,6 +13,7 @@
 //Port Led Define
 #define BlueLed 0
 #define RedLed 15
+#define GreenLed 16
 
 //Led Bar Define
 #define LedBar_1 7

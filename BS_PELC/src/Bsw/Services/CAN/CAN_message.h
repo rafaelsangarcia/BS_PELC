@@ -5,9 +5,9 @@
 /*============================================================================*/
 /*!
  * $Source: CAN_message.h
- * $Revision: 1
+ * $Revision: 2
  * $Author: Rafael Sanchez
- * $Date: 12/DIC/2017
+ * $Date: 15/DIC/2017
  */
 /*============================================================================*/
 /* DESCRIPTION :                                                              */
@@ -35,6 +35,7 @@
 /*  Author           |        Version     |           DESCRIPTION             */
 /*----------------------------------------------------------------------------*/
 /*  Rafael Sanchez   |      1             |  Add Prototype for Hazard and turn*/
+/*  Rafael Sanchez   |      2             |  Create new variable to mgn sch	  */
 /*============================================================================*/
 /*                               OBJECT HISTORY                               */
 /*============================================================================*/
@@ -74,13 +75,17 @@ typedef struct
 
 
 /* Exported Variables */
-unsigned char  *ptr_rx, *ptr_struct;
-bytes_struct rx_bytes;
+unsigned char  *ptr_rx, *ptr_struct, *ptr_hazard, *ptr_turn;
+bytes_struct rx_bytes, hazardStruct, listenStruct, turnStruct;
+unsigned char params[3], params2[3], params3[3];
 /*============================================================================*/
 
 
 /* Exported functions prototypes */
 void CAN_message_void_fillStruct();
+void CAN_message_void_fill_ListenStruct();
+void CAN_message_void_fill_HazardStruct();
+void CAN_message_void_fill_TurnStruct();
 void test_void();
 void CAN_message_void_TurnBehavior();
 void CAN_message_void_Hazard();

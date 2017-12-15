@@ -7,6 +7,7 @@
 
 #include "General.h"          /* include peripheral declarations */
 #include "Lpit.h"
+#include "Port.h"
 
 tCallbackFunction GlbPit0Callback;
 
@@ -36,4 +37,5 @@ void LPIT0_Ch0_IRQHandler (void) {
   LPIT0->MSR |= LPIT_MSR_TIF0_MASK; /* Clear LPIT0 timer flag 0 */
   if ( NULL!= GlbPit0Callback)
 	  GlbPit0Callback();
+
 }

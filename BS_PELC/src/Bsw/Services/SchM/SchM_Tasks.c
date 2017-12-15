@@ -5,9 +5,9 @@
 /*============================================================================*/
 /*!
  ** $Source: SchM_Tasks.c $
- * $Revision: version 3 $
+ * $Revision: version 5 $
  * $Author: Rafael Sanchez $
- * $Date: 12/Dic/2017 $
+ * $Date: 15/Dic/2017 $
  */
 /*============================================================================*/
 /* DESCRIPTION :                                                              */
@@ -37,6 +37,8 @@
 /*  Rafael Sanchez   |      1             |  Use the template and add the code*/
 /*  Rafael Sanchez   |      2             | Fill each task turning on/off leds*/
 /*  Rafael Sanchez   |      3             | Test Hazard and turn lights				*/
+/*  Rafael Sanchez   |      4	          | Fix Scheduler	   				  */
+/*  Rafael Sanchez   |      5	          | Fix Scheduler v2   				  */
 /*============================================================================*/
 /*                               OBJECT HISTORY                               */
 /*============================================================================*/
@@ -58,6 +60,8 @@
 /*============================================================================*/
 
 /* Variables */
+int id = 0;
+int j = 0;
 /*============================================================================*/
 
 /* Private functions prototypes */
@@ -78,36 +82,61 @@
  */
 
 /* Exported functions */
-void SchM_5ms_Task ( void ){
+void SchM_LISTEN_Task ( void ){
+	PTD->PTOR |= 1<<BlueLed;
 	if ((CAN0->IFLAG1 >> 4) & 1)
-	{  /* If CAN 0 MB 4 flag is set (received msg), read MB4 */
-		FLEXCAN0_receive_msg (4,rx_msg_data);      /* Read message */
+	{
+		FLEXCAN0_receive_msg (4,rx_msg_data);
 		tx_msg_data[0]=rx_msg_data[0];
 		tx_msg_data[1]=rx_msg_data[1];
-		FLEXCAN0_transmit_msg (0,0x15540000,tx_msg_data);     /* MB0 word 1: Tx msg with STD ID 0x555 */
-		CAN_message_void_fillStruct();
-
+		CAN_message_void_fill_HazardStruct();
+		CAN_message_void_fillParams2();
+		FLEXCAN0_transmit_msg (0,0x15540000,tx_msg_data);
 	}
-
 	if ((CAN0->IFLAG1 >> 1) & 1)
-	{  /* If CAN 0 MB 4 flag is set (received msg), read MB4 */
-		FLEXCAN0_receive_msg (1,rx_msg_data);      /* Read message */
-
-		//PTD->PTOR &= (~(1<<16));         /*   toggle output port D16 (Green LED) */
+	{
+		FLEXCAN0_receive_msg (1,rx_msg_data);
 		tx_msg_data[0]=rx_msg_data[0];
 		tx_msg_data[1]=rx_msg_data[1];
-		FLEXCAN0_transmit_msg (2,0x04100000,tx_msg_data );     /* MB0 word 1: Tx msg with STD ID 0x511  */
+		CAN_message_void_fill_TurnStruct();
+		CAN_message_void_fillParams3();
+		FLEXCAN0_transmit_msg (2,0x04100000,tx_msg_data );
 	}
+	/*else{
+		for(j = 0; j<3 ; j++){
+		params2[j];
+		params3[j];
+		}
+	}*/
+}
 
-	CAN_message_void_fillStruct();
-	//CAN_message_void_TurnBehavior();
+void SchM_HAZARD_Task(void){
+	//PTC->PTOR |= 1<<LedBar_1;
+	/*if ((CAN0->IFLAG1 >> 4) & 1)
+	{
+		FLEXCAN0_receive_msg (4,rx_msg_data);
+		tx_msg_data[0]=rx_msg_data[0];
+		tx_msg_data[1]=rx_msg_data[1];
+		CAN_message_void_fill_HazardStruct();
+		FLEXCAN0_transmit_msg (0,0x15540000,tx_msg_data);
+	}*/
 	CAN_message_void_Hazard();
 }
-/*
-void SchM_6p25ms_Task ( void ){
-	Dio_PortTooglePin(PORTCH_B, LedBar_2);
-	for(counter_2=0; counter_2 <= Cycles; counter_2++){}
+
+void SchM_TURN_Task(void){
+
+	/*if ((CAN0->IFLAG1 >> 1) & 1)
+	{
+		FLEXCAN0_receive_msg (1,rx_msg_data);
+		tx_msg_data[0]=rx_msg_data[0];
+		tx_msg_data[1]=rx_msg_data[1];
+		CAN_message_void_fill_TurnStruct();
+		FLEXCAN0_transmit_msg (2,0x04100000,tx_msg_data );
+	}*/
+	CAN_message_void_TurnBehavior();
+
 }
+/*
 
 void SchM_12p5ms_Task ( void ){
 	Dio_PortTooglePin(PORTCH_B, LedBar_3);

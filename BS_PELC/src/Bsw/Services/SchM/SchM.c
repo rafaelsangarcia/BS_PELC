@@ -116,12 +116,12 @@ void SchM_Background( void ){
 			{
 				SchM_TaskControlBlock[LocTaskIdx].SchM_TaskState = SCHM_TASK_STATE_RUNNING;
 				SchM_SchedulerStatus.SchM_SchedulerState = SCHM_RUNNING;
-				SetOffBackgroundState();
+				//SetOffBackgroundState();
 				GlbSchMConfig->TaskConfig[LocTaskIdx].TaskCallback();
 				SchM_TaskControlBlock[LocTaskIdx].SchM_TaskState = SCHM_TASK_STATE_SUSPENDED;
 				FlagsScheduler.FlagTaskState = 0 ;
 				SchM_SchedulerStatus.SchM_SchedulerState = SCHM_IDLE;
-				SetBackgroundState();
+				//SetBackgroundState();
 			}
 		}
 	}
