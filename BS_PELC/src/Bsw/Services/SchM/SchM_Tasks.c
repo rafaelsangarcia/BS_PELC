@@ -133,7 +133,9 @@ void SchM_TURN_Task(void){
 		CAN_message_void_fill_TurnStruct();
 		FLEXCAN0_transmit_msg (2,0x04100000,tx_msg_data );
 	}*/
-	CAN_message_void_TurnBehavior();
+	if (hazardflag == 0){
+		CAN_message_void_TurnBehavior();
+	}
 
 }
 /*

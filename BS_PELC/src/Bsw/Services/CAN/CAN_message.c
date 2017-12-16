@@ -94,8 +94,7 @@ void CAN_message_void_fillParams3(){
 void CAN_message_void_Turn_Right(){
 	switch(mode_2){
 	case 0:
-		PTB->PCOR |= 1<<LedBar_3;
-
+		PTC->PSOR |= 1<<LedBar_6;
 		cont_3++;
 		if(cont_3 >= time_on_3){
 			mode_2 = 1;
@@ -107,8 +106,7 @@ void CAN_message_void_Turn_Right(){
 		break;
 
 	case 1:
-		PTB->PSOR |= 1<<LedBar_3;
-
+		PTC->PCOR |= 1<<LedBar_6;
 		cont_3++;
 		if(cont_3 >= time_off_3){
 			mode_2 = 0;
@@ -124,7 +122,7 @@ void CAN_message_void_Turn_Right(){
 void CAN_message_void_Turn_Left(){
 	switch(mode_2){
 	case 0:
-		PTB->PSOR |= 1<<LedBar_2;
+		PTC->PSOR |= 1<<LedBar_1;
 		cont_3++;
 		if(cont_3 >= time_on_3){
 			mode_2 = 1;
@@ -136,7 +134,7 @@ void CAN_message_void_Turn_Left(){
 		break;
 
 	case 1:
-		PTB->PCOR |= 1<<LedBar_2;
+		PTC->PCOR |= 1<<LedBar_1;
 		cont_3++;
 		if(cont_3 >= time_off_3){
 			mode_2 = 0;
@@ -152,8 +150,8 @@ void CAN_message_void_Turn_Left(){
 void CAN_message_void_Hazard_ON(){
 	switch(mode){
 	case 0:
-		PTC->PCOR |= 1<<LedBar_1;
-		PTC->PCOR |= 1<<LedBar_6;
+		PTC->PSOR |= 1<<LedBar_1;
+		PTC->PSOR |= 1<<LedBar_6;
 		cont_2++;
 		if(cont_2 >= time_on_2){
 			mode = 1;
@@ -165,8 +163,8 @@ void CAN_message_void_Hazard_ON(){
 		break;
 
 	case 1:
-		PTC->PSOR |= 1<<LedBar_1;
-		PTC->PSOR |= 1<<LedBar_6;
+		PTC->PCOR |= 1<<LedBar_1;
+		PTC->PCOR |= 1<<LedBar_6;
 		cont_2++;
 		if(cont_2 >= time_off_2){
 			mode = 0;
@@ -268,11 +266,13 @@ void CAN_message_void_Hazard(){
 	time_off_2 = params2[2] * 25;
 	switch(params2[0]){
 	case 0x00:
+	hazardflag = 0;
 		PTC->PCOR |= 1<<LedBar_1;
 		PTC->PCOR |= 1<<LedBar_6;
 		break;
 
 	case 0x0F:
+		hazardflag = 1;
 		CAN_message_void_Hazard_ON();
 		break;
 	}
