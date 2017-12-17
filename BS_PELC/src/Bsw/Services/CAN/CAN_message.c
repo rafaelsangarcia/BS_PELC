@@ -5,9 +5,9 @@
 /*============================================================================*/
 /*!
  * $Source: CAN_message.c
- * $Revision: 2
+ * $Revision: 3
  * $Author: Rafael Sanchez
- * $Date: 15/Dic/2017
+ * $Date: 17/Dic/2017
  */
 /*============================================================================*/
 /* DESCRIPTION :                                                              */
@@ -35,7 +35,8 @@
 /*  Author           |        Version     |           DESCRIPTION             */
 /*----------------------------------------------------------------------------*/
 /*  Rafael Sanchez   |      1             |  Create Hazard and turn functions*/
-/*  Rafael Sanchez   |      2             |  fix Scheduler					 */
+/*  Rafael Sanchez   |      2             |  fix Scheduler					 				  */
+/*  Rafael Sanchez   |      3             |  Merge PWM, prioritize hazard			*/
 /*============================================================================*/
 /*                               OBJECT HISTORY                               */
 /*============================================================================*/

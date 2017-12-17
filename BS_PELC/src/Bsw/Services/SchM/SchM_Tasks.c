@@ -5,9 +5,9 @@
 /*============================================================================*/
 /*!
  ** $Source: SchM_Tasks.c $
- * $Revision: version 5 $
+ * $Revision: version 6 $
  * $Author: Rafael Sanchez $
- * $Date: 15/Dic/2017 $
+ * $Date: 17/Dic/2017 $
  */
 /*============================================================================*/
 /* DESCRIPTION :                                                              */
@@ -37,8 +37,9 @@
 /*  Rafael Sanchez   |      1             |  Use the template and add the code*/
 /*  Rafael Sanchez   |      2             | Fill each task turning on/off leds*/
 /*  Rafael Sanchez   |      3             | Test Hazard and turn lights				*/
-/*  Rafael Sanchez   |      4	          | Fix Scheduler	   				  */
-/*  Rafael Sanchez   |      5	          | Fix Scheduler v2   				  */
+/*  Rafael Sanchez   |      4	            | Fix Scheduler	   				 				  */
+/*  Rafael Sanchez   |      5	            | Fix Scheduler v2   				        */
+/*  Rafael Sanchez   |      6             |  Merge PWM, prioritize hazard			*/
 /*============================================================================*/
 /*                               OBJECT HISTORY                               */
 /*============================================================================*/
