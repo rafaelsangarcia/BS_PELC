@@ -5,9 +5,9 @@
 /*============================================================================*/
 /*!
  * $Source: SchM_Cfg.c
- * $Revision: 1
- * $Author: Rodrigo Mortera
- * $Date: 17/NOV/2017
+ * $Revision: 2
+ * $Author: Rafael Sanchez
+ * $Date: 17/DIC/2017
  */
 /*============================================================================*/
 /* DESCRIPTION :                                                              */
@@ -35,6 +35,7 @@
 /*  Author           |        Version     |           DESCRIPTION             */
 /*----------------------------------------------------------------------------*/
 /*  Rodrigo Mortera   |      1             |  Use the template and add the code*/
+/*  Rafael Sanchez    |      2             |  Add mainlight task description*/
 /*============================================================================*/
 /*                               OBJECT HISTORY                               */
 /*============================================================================*/
@@ -63,6 +64,12 @@ const SchM_TaskConfigType TaskDescriptor[]=
 				SCHM_OFFSET_LISTEN,
 				/* ... */
 				SchM_LISTEN_Task
+		},
+		{
+				SCHM_TASKID_MAINLIGHTS,
+				SCHM_MASK_MAINLIGHTS,
+				SCHM_OFFSET_MAINLIGHTS,
+				SchM_MAINLIGHTS_Task
 		},
 		{
 				SCHM_TASKID_HAZARD,

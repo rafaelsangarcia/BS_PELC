@@ -5,7 +5,7 @@
 /*============================================================================*/
 /*!
  ** $Source: SchM_Tasks.c $
- * $Revision: version 6 $
+ * $Revision: version 7 $
  * $Author: Rafael Sanchez $
  * $Date: 17/Dic/2017 $
  */
@@ -40,6 +40,7 @@
 /*  Rafael Sanchez   |      4	            | Fix Scheduler	   				 				  */
 /*  Rafael Sanchez   |      5	            | Fix Scheduler v2   				        */
 /*  Rafael Sanchez   |      6             |  Merge PWM, prioritize hazard			*/
+/*  Rafael Sanchez   |      7             |  Updates Task and add mainlight			*/
 /*============================================================================*/
 /*                               OBJECT HISTORY                               */
 /*============================================================================*/
@@ -85,60 +86,47 @@ int j = 0;
 /* Exported functions */
 void SchM_LISTEN_Task ( void ){
 	PTD->PTOR |= 1<<BlueLed;
-	if ((CAN0->IFLAG1 >> 4) & 1)
-	{
-		FLEXCAN0_receive_msg (4,rx_msg_data);
+
+	if ((CAN0->IFLAG1 >> 0) & 1){
+		FLEXCAN0_receive_msg (0,rx_msg_data);
+		tx_msg_data[0]=rx_msg_data[0];
+		tx_msg_data[1]=rx_msg_data[1];
+		CAN_message_void_fill_MainLightsStruct();
+		CAN_message_void_fillParams4();
+		FLEXCAN0_transmit_msg (17,0x15540000,tx_msg_data);
+	}
+
+	if ((CAN0->IFLAG1 >> 1) & 1){
+		FLEXCAN0_receive_msg (1,rx_msg_data);
 		tx_msg_data[0]=rx_msg_data[0];
 		tx_msg_data[1]=rx_msg_data[1];
 		CAN_message_void_fill_HazardStruct();
 		CAN_message_void_fillParams2();
-		FLEXCAN0_transmit_msg (0,0x15540000,tx_msg_data);
+		FLEXCAN0_transmit_msg (17,0x15540000,tx_msg_data);
 	}
-	if ((CAN0->IFLAG1 >> 3) & 1)
-	{
-		FLEXCAN0_receive_msg (3,rx_msg_data);
+
+	if ((CAN0->IFLAG1 >> 2) & 1){
+		FLEXCAN0_receive_msg (2,rx_msg_data);
 		tx_msg_data[0]=rx_msg_data[0];
 		tx_msg_data[1]=rx_msg_data[1];
 		CAN_message_void_fill_TurnStruct();
 		CAN_message_void_fillParams3();
-		FLEXCAN0_transmit_msg (2,0x04100000,tx_msg_data );
+		FLEXCAN0_transmit_msg (18,0x04100000,tx_msg_data);
 	}
-	/*else{
-		for(j = 0; j<3 ; j++){
-		params2[j];
-		params3[j];
-		}
-	}*/
+}
+
+void SchM_MAINLIGHTS_Task(void){
+	CAN_message_void_MainLights();
 }
 
 void SchM_HAZARD_Task(void){
-	//PTC->PTOR |= 1<<LedBar_1;
-	/*if ((CAN0->IFLAG1 >> 4) & 1)
-	{
-		FLEXCAN0_receive_msg (4,rx_msg_data);
-		tx_msg_data[0]=rx_msg_data[0];
-		tx_msg_data[1]=rx_msg_data[1];
-		CAN_message_void_fill_HazardStruct();
-		FLEXCAN0_transmit_msg (0,0x15540000,tx_msg_data);
-	}*/
 	CAN_message_void_Hazard();
-	//Control_ADC_clean_flag();
 }
 
 void SchM_TURN_Task(void){
-
-	/*if ((CAN0->IFLAG1 >> 1) & 1)
-	{
-		FLEXCAN0_receive_msg (1,rx_msg_data);
-		tx_msg_data[0]=rx_msg_data[0];
-		tx_msg_data[1]=rx_msg_data[1];
-		CAN_message_void_fill_TurnStruct();
-		FLEXCAN0_transmit_msg (2,0x04100000,tx_msg_data );
-	}*/
 	if (hazardflag == 0){
 		CAN_message_void_TurnBehavior();
 	}
-
 }
 /*
 

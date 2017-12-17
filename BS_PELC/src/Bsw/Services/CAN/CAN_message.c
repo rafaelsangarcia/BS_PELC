@@ -5,7 +5,7 @@
 /*============================================================================*/
 /*!
  * $Source: CAN_message.c
- * $Revision: 3
+ * $Revision: 4
  * $Author: Rafael Sanchez
  * $Date: 17/Dic/2017
  */
@@ -37,6 +37,7 @@
 /*  Rafael Sanchez   |      1             |  Create Hazard and turn functions*/
 /*  Rafael Sanchez   |      2             |  fix Scheduler					 				  */
 /*  Rafael Sanchez   |      3             |  Merge PWM, prioritize hazard			*/
+/*  Rafael Sanchez   |      4             |  Add mainLightsStruct							*/
 /*============================================================================*/
 /*                               OBJECT HISTORY                               */
 /*============================================================================*/
@@ -60,6 +61,7 @@ unsigned char mode = 0, mode_2=0;
 int cont_1, cont_2, cont_3 = 0;
 
 int time_on, time_off, time_on_2, time_off_2, time_on_3, time_off_3 = 0;
+int percent_MAX, percent_MIN = 0;
 /*============================================================================*/
 /* Private functions prototypes */
 void CAN_message_void_fillParams();
@@ -68,6 +70,8 @@ void CAN_message_void_fillParams3();
 void CAN_message_void_Turn_Right();
 void CAN_message_void_Turn_Left();
 void CAN_message_void_Hazard_ON();
+void CAN_message_void_Hazard_FRONT(int);
+void CAN_message_void_Hazard_REAR(int);
 /*============================================================================*/
 /* Inline functions */
 /*============================================================================*/
@@ -93,13 +97,19 @@ void CAN_message_void_fillParams3(){
 	}
 }
 
+void CAN_message_void_fillParams4(){
+	ptr_struct= &mainLightsStruct;
+	for(i = 0; i < mainLightsStruct.byte1; i++){
+		params4[i] = *(ptr_struct + 1 + i);
+	}
+}
+
 void CAN_message_void_Turn_Right(){
 	switch(mode_2){
 	case 0:
 		//PTB->PCOR |= 1<<LedBar_3;
-		percentage = 0;
-		Control_ADC();
-		PWM_0(1);
+		CAN_message_void_PWM_Turn_Right_FRONT(percent_MIN);
+		CAN_message_void_PWM_Turn_Right_REAR(0);
 		cont_3++;
 		if(cont_3 >= time_on_3){
 			mode_2 = 1;
@@ -111,10 +121,8 @@ void CAN_message_void_Turn_Right(){
 		break;
 
 	case 1:
-		//PTB->PSOR |= 1<<LedBar_3;
-		percentage = 100;
-		Control_ADC();
-		PWM_0(1);
+		CAN_message_void_PWM_Turn_Right_FRONT(100);
+		CAN_message_void_PWM_Turn_Right_REAR(100);
 		cont_3++;
 		if(cont_3 >= time_off_3){
 			mode_2 = 0;
@@ -130,10 +138,8 @@ void CAN_message_void_Turn_Right(){
 void CAN_message_void_Turn_Left(){
 	switch(mode_2){
 	case 0:
-		//PTB->PSOR |= 1<<LedBar_2;
-		percentage = 0;
-		Control_ADC();
-		PWM_0(0);
+		CAN_message_void_PWM_Turn_Left_FRONT(percent_MIN);
+		CAN_message_void_PWM_Turn_Left_REAR(0);
 		cont_3++;
 		if(cont_3 >= time_on_3){
 			mode_2 = 1;
@@ -145,11 +151,8 @@ void CAN_message_void_Turn_Left(){
 		break;
 
 	case 1:
-		//PTB->PCOR |= 1<<LedBar_2;
-		percentage = 100;
-		Control_ADC();
-		PWM_0(0);
-
+		CAN_message_void_PWM_Turn_Left_FRONT(100);
+		CAN_message_void_PWM_Turn_Left_REAR(100);
 		cont_3++;
 		if(cont_3 >= time_off_3){
 			mode_2 = 0;
@@ -162,15 +165,43 @@ void CAN_message_void_Turn_Left(){
 	}
 }
 
+void CAN_message_void_PWM_Hazard_FRONT(int percentage){
+	Control_ADC(percentage);
+	PWM_0(0);
+	PWM_0(1);
+}
+
+void CAN_message_void_PWM_Hazard_REAR(int percentage){
+	Control_ADC(percentage);
+	PWM_0(2);
+	PWM_0(4);
+}
+
+void CAN_message_void_PWM_Turn_Right_FRONT(int percentage){
+	Control_ADC(percentage);
+	PWM_0(0);
+}
+
+void CAN_message_void_PWM_Turn_Left_FRONT(int percentage){
+	Control_ADC(percentage);
+	PWM_0(1);
+}
+
+void CAN_message_void_PWM_Turn_Right_REAR(int percentage){
+	Control_ADC(percentage);
+	PWM_0(2);
+}
+
+void CAN_message_void_PWM_Turn_Left_REAR(int percentage){
+	Control_ADC(percentage);
+	PWM_0(4);
+}
+
 void CAN_message_void_Hazard_ON(){
 	switch(mode){
 	case 0:
-		percentage = 0;
-		Control_ADC();
-		PWM_0(0);
-		PWM_0(1);
-		/*PTC->PCOR |= 1<<LedBar_1;
-		PTC->PCOR |= 1<<LedBar_6;*/
+		CAN_message_void_PWM_Hazard_FRONT(percent_MIN);
+		CAN_message_void_PWM_Hazard_REAR(0);
 		cont_2++;
 		if(cont_2 >= time_on_2){
 			mode = 1;
@@ -182,13 +213,8 @@ void CAN_message_void_Hazard_ON(){
 		break;
 
 	case 1:
-		percentage = 100;
-		Control_ADC();
-		PWM_0(0);
-		PWM_0(1);
-
-		//PTC->PSOR |= 1<<LedBar_1;
-		//PTC->PSOR |= 1<<LedBar_6;
+		CAN_message_void_PWM_Hazard_FRONT(100);
+		CAN_message_void_PWM_Hazard_REAR(100);
 		cont_2++;
 		if(cont_2 >= time_off_2){
 			mode = 0;
@@ -200,13 +226,33 @@ void CAN_message_void_Hazard_ON(){
 		break;
 	}
 }
+
+
 /*============================================================================*/
 /* Exported functions */
+
+
 void CAN_message_void_fillStruct(){
 	ptr_rx = rx_msg_data;
 	ptr_rx = ptr_rx + 3;
 
 	ptr_struct = &rx_bytes;
+
+	for (i = 0 ; i < 8; i++){
+		if ( i == 4 ){
+			ptr_rx = ptr_rx + 8;
+		}
+		*ptr_struct = *ptr_rx;
+		ptr_struct++;
+		ptr_rx--;
+	}
+}
+
+void CAN_message_void_fill_MainLightsStruct(){
+	ptr_rx = rx_msg_data;
+	ptr_rx = ptr_rx + 3;
+
+	ptr_struct = &mainLightsStruct;
 
 	for (i = 0 ; i < 8; i++){
 		if ( i == 4 ){
@@ -266,16 +312,14 @@ void test_void() {
 
 void CAN_message_void_TurnBehavior(){
 	//CAN_message_void_fillParams3();
-	time_on_3 = params3[1] * 12;
-	time_off_3 = params3[2] * 12;
+	time_on_3 = params3[1] * 6;
+	time_off_3 = params3[2] * 6;
 	switch(params3[0]){
 	case 0x01:
-		/*PTB->PCOR |= 1<<LedBar_2;
-		PTB->PCOR |= 1<<LedBar_3;*/
-		percentage = 0;
-		Control_ADC();
-		PWM_0(0);
-		PWM_0(1);
+		CAN_message_void_PWM_Turn_Right_FRONT(percent_MIN);
+		CAN_message_void_PWM_Turn_Left_FRONT(percent_MIN);
+		CAN_message_void_PWM_Turn_Right_REAR(0);
+		CAN_message_void_PWM_Turn_Left_REAR(0);
 		break;
 
 	case 0x0A:
@@ -295,10 +339,8 @@ void CAN_message_void_Hazard(){
 	switch(params2[0]){
 	case 0x00:
 		hazardflag = 0;
-		percentage = 0;
-		Control_ADC();
-		PWM_0(0);
-		PWM_0(1);
+	 	CAN_message_void_PWM_Hazard_FRONT(percent_MIN);
+	 	CAN_message_void_PWM_Hazard_REAR(0);
 		params2[0] = 0x01;
 		break;
 
@@ -310,6 +352,21 @@ void CAN_message_void_Hazard(){
 		hazardflag = 1;
 		CAN_message_void_Hazard_ON();
 		break;
+	}
+}
+
+void CAN_message_void_MainLights(){
+	switch (params4[0]) {
+		case 0x01:
+		percent_MAX = 100;
+		percent_MIN = 0;
+		break;
+
+		case 0x02:
+		percent_MAX = 100;
+		percent_MIN = 20;
+		break;
+
 	}
 }
 

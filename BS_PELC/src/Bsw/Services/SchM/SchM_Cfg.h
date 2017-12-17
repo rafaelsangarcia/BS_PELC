@@ -5,9 +5,9 @@
 /*============================================================================*/
 /*!
  * $Source: SchM_Cfg.h
- * $Revision: 2
+ * $Revision: 3
  * $Author: Rafael Sanchez
- * $Date: 13/DIC/2017
+ * $Date: 17/DIC/2017
  */
 /*============================================================================*/
 /* DESCRIPTION :                                                              */
@@ -36,6 +36,7 @@
 /*----------------------------------------------------------------------------*/
 /*  Rodrigo Mortera   |      1             |  Use the template and add the code*/
 /*  Roafael Sanchez   |      2             |  test different mask 						*/
+/*  Roafael Sanchez   |      3             |  Add mask to mainlight 						*/
 /*============================================================================*/
 /*                               OBJECT HISTORY                               */
 /*============================================================================*/
@@ -60,20 +61,23 @@ typedef uint8_t SchM_TaskOffsetType;
 
 typedef enum{
 	SCHM_OFFSET_LISTEN = (T_UBYTE) 0u,
-	SCHM_OFFSET_HAZARD = (T_UBYTE) 1u,
-	SCHM_OFFSET_TURN = (T_UBYTE) 2u,
+	SCHM_OFFSET_MAINLIGHTS = (T_UBYTE) 1u,
+	SCHM_OFFSET_HAZARD = (T_UBYTE) 2u,
+	SCHM_OFFSET_TURN = (T_UBYTE) 3u,
 
 } Schm_TaskOffsetType;
 
 typedef enum{
 	SCHM_MASK_LISTEN = 3,
-	SCHM_MASK_HAZARD = 7,
-	SCHM_MASK_TURN = 15,
+	SCHM_MASK_MAINLIGHTS = 7,
+	SCHM_MASK_HAZARD = 15,
+	SCHM_MASK_TURN = 31,
 }SchM_TaskMaskType;
 
 typedef enum {
 	SCHM_TASKID_BKG,
 	SCHM_TASKID_LISTEN,
+	SCHM_TASKID_MAINLIGHTS,
 	SCHM_TASKID_HAZARD,
 	SCHM_TASKID_TURN,
 }SchM_TaskIDType;

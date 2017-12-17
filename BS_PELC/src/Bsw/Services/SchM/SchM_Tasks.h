@@ -5,9 +5,9 @@
 /*============================================================================*/
 /*!
 * $Source: SchM_Tasks.h $
-* $Revision: version 2 $
+* $Revision: version 3 $
 * $Author: Rafael Sanchez $
-* $Date: 17/Nov/2017 $
+* $Date: 17/Dic/2017 $
  */
 /*============================================================================*/
 /* DESCRIPTION :                                                              */
@@ -36,6 +36,7 @@
 /*----------------------------------------------------------------------------*/
 /*  Rafael Sanchez   |      1             |  Use the template and add the code*/
 /*  Rafael Sanchez   |      2             | Add Port.h                        */
+/*  Rafael Sanchez   |      3             | Add main light                        */
 
 /*============================================================================*/
 /*                               OBJECT HISTORY                               */
@@ -63,8 +64,10 @@
 
 /* Exported functions prototypes */
 extern void SchM_LISTEN_Task ( void );
+extern void SchM_MAINLIGHTS_Task ( void );
 extern void SchM_HAZARD_Task ( void );
-extern void SchM_TURN_Task ( void );/*
+extern void SchM_TURN_Task ( void );
+/*
 extern void SchM_6p25ms_Task ( void );
 extern void SchM_12p5ms_Task ( void );
 extern void SchM_25ms_Task ( void );
