@@ -34,7 +34,7 @@ void PORT_init (void) {
 	PTD->PSOR |= 1<<GreenLed;
 
 	/*LedBars*/
-	PTC->PDDR |= 1<<LedBar_1;
+	/*PTC->PDDR |= 1<<LedBar_1;
 	PTB->PDDR |= 1<<LedBar_2;
 	PTB->PDDR |= 1<<LedBar_3;
 	PTB->PDDR |= 1<<LedBar_4;
@@ -53,7 +53,7 @@ void PORT_init (void) {
 	PTB->PCOR |= 1<<LedBar_3;//14
 	PTB->PCOR |= 1<<LedBar_4;//15
 	PTB->PCOR |= 1<<LedBar_5;//16
-	PTC->PCOR |= 1<<LedBar_6;//14
+	PTC->PCOR |= 1<<LedBar_6;//14*/
 
 	PORTD->PCR[1]|=PORT_PCR_MUX(2); /* Port D1: MUX = ALT2, FTM0CH1 */
 	PORTC->PCR[1]|=PORT_PCR_MUX(2); /* Port C1: MUX = ALT2, FTM0CH1 */

@@ -121,6 +121,7 @@ void SchM_HAZARD_Task(void){
 		FLEXCAN0_transmit_msg (0,0x15540000,tx_msg_data);
 	}*/
 	CAN_message_void_Hazard();
+	//Control_ADC_clean_flag();
 }
 
 void SchM_TURN_Task(void){
