@@ -47,16 +47,40 @@ void FLEXCAN0_init(void) {
                                                 /* IDE=0: Standard ID */
                                                 /* SRR, RTR, TIME STAMP = 0: not applicable */
                                   /* Node A receives msg with std ID 0x511 */
-  CAN0->RAMn[ 4*MSG_BUF_SIZE + 1] = 0x14440000; /* Msg Buf 4, word 1: Standard ID = 0x511 */
+  CAN0->RAMn[ 4*MSG_BUF_SIZE + 1] = (0x04<<2)<<16; /* Msg Buf 4, word 1: Standard ID = 0x511 */
+//= (0x01<<2)<<16;
 
-
-  CAN0->RAMn[ 1*MSG_BUF_SIZE + 0] = 0x04000000; /* Msg Buf 1, word 0: Enable for reception */
+  CAN0->RAMn[ 3*MSG_BUF_SIZE + 0] = 0x04000000; /* Msg Buf 1, word 0: Enable for reception */
                                                 /* EDL,BRS,ESI=0: CANFD not used */
                                                 /* CODE=4: MB set to RX inactive */
                                                 /* IDE=0: Standard ID */
                                                 /* SRR, RTR, TIME STAMP = 0: not applicable */
 
-  CAN0->RAMn[ 1*MSG_BUF_SIZE + 1] = 0x0C800000; /* Msg Buf 1, word 1: Standard ID = 0x320 */
+  CAN0->RAMn[ 3*MSG_BUF_SIZE + 1] = (0x03<<2)<<16; /* Msg Buf 1, word 1: Standard ID = 0x320 */
+
+  CAN0->RAMn[ 0*MSG_BUF_SIZE + 0] = 0x04000000; /* Msg Buf 4, word 0: Enable for reception */
+                                                  /* EDL,BRS,ESI=0: CANFD not used */
+                                                  /* CODE=4: MB set to RX inactive */
+                                                  /* IDE=0: Standard ID */
+                                                  /* SRR, RTR, TIME STAMP = 0: not applicable */
+                                    /* Node A receives msg with std ID 0x511 */
+    CAN0->RAMn[ 0*MSG_BUF_SIZE + 1] = (0x01<<2)<<16; /* Msg Buf 4, word 1: Standard ID = 0x511 */
+
+    CAN0->RAMn[ 2*MSG_BUF_SIZE + 0] = 0x04000000; /* Msg Buf 4, word 0: Enable for reception */
+                                                    /* EDL,BRS,ESI=0: CANFD not used */
+                                                    /* CODE=4: MB set to RX inactive */
+                                                    /* IDE=0: Standard ID */
+                                                    /* SRR, RTR, TIME STAMP = 0: not applicable */
+                                      /* Node A receives msg with std ID 0x511 */
+      CAN0->RAMn[ 2*MSG_BUF_SIZE + 1] = (0x02<<2)<<16; /* Msg Buf 4, word 1: Standard ID = 0x511 */
+
+      CAN0->RAMn[ 1*MSG_BUF_SIZE + 0] = 0x04000000; /* Msg Buf 4, word 0: Enable for reception */
+                                                      /* EDL,BRS,ESI=0: CANFD not used */
+                                                      /* CODE=4: MB set to RX inactive */
+                                                      /* IDE=0: Standard ID */
+                                                      /* SRR, RTR, TIME STAMP = 0: not applicable */
+                                        /* Node A receives msg with std ID 0x511 */
+        CAN0->RAMn[ 1*MSG_BUF_SIZE + 1] = (0x05<<2)<<16; /* Msg Buf 4, word 1: Standard ID = 0x511 */
 
   /* PRIO = 0: CANFD not used */
   CAN0->MCR = 0x0000001F;       /* Negate FlexCAN 1 halt state for 32 MBs */

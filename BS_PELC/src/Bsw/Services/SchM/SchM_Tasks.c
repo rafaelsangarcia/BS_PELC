@@ -93,9 +93,9 @@ void SchM_LISTEN_Task ( void ){
 		CAN_message_void_fillParams2();
 		FLEXCAN0_transmit_msg (0,0x15540000,tx_msg_data);
 	}
-	if ((CAN0->IFLAG1 >> 1) & 1)
+	if ((CAN0->IFLAG1 >> 3) & 1)
 	{
-		FLEXCAN0_receive_msg (1,rx_msg_data);
+		FLEXCAN0_receive_msg (3,rx_msg_data);
 		tx_msg_data[0]=rx_msg_data[0];
 		tx_msg_data[1]=rx_msg_data[1];
 		CAN_message_void_fill_TurnStruct();
