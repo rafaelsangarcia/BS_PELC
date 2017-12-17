@@ -5,9 +5,9 @@
 /*============================================================================*/
 /*!
  * $Source: CAN_message.c
- * $Revision: 2
+ * $Revision: 3
  * $Author: Rafael Sanchez
- * $Date: 15/Dic/2017
+ * $Date: 17/Dic/2017
  */
 /*============================================================================*/
 /* DESCRIPTION :                                                              */
@@ -35,7 +35,8 @@
 /*  Author           |        Version     |           DESCRIPTION             */
 /*----------------------------------------------------------------------------*/
 /*  Rafael Sanchez   |      1             |  Create Hazard and turn functions*/
-/*  Rafael Sanchez   |      2             |  fix Scheduler					 */
+/*  Rafael Sanchez   |      2             |  fix Scheduler					 				  */
+/*  Rafael Sanchez   |      3             |  Merge PWM, prioritize hazard			*/
 /*============================================================================*/
 /*                               OBJECT HISTORY                               */
 /*============================================================================*/
@@ -98,7 +99,7 @@ void CAN_message_void_Turn_Right(){
 		//PTB->PCOR |= 1<<LedBar_3;
 		percentage = 0;
 		Control_ADC();
-		PWM_0(2);
+		PWM_0(1);
 		cont_3++;
 		if(cont_3 >= time_on_3){
 			mode_2 = 1;
@@ -113,7 +114,7 @@ void CAN_message_void_Turn_Right(){
 		//PTB->PSOR |= 1<<LedBar_3;
 		percentage = 100;
 		Control_ADC();
-		PWM_0(2);
+		PWM_0(1);
 		cont_3++;
 		if(cont_3 >= time_off_3){
 			mode_2 = 0;
@@ -132,7 +133,7 @@ void CAN_message_void_Turn_Left(){
 		//PTB->PSOR |= 1<<LedBar_2;
 		percentage = 0;
 		Control_ADC();
-		PWM_0(4);
+		PWM_0(0);
 		cont_3++;
 		if(cont_3 >= time_on_3){
 			mode_2 = 1;
@@ -147,7 +148,7 @@ void CAN_message_void_Turn_Left(){
 		//PTB->PCOR |= 1<<LedBar_2;
 		percentage = 100;
 		Control_ADC();
-		PWM_0(4);
+		PWM_0(0);
 
 		cont_3++;
 		if(cont_3 >= time_off_3){
@@ -273,8 +274,8 @@ void CAN_message_void_TurnBehavior(){
 		PTB->PCOR |= 1<<LedBar_3;*/
 		percentage = 0;
 		Control_ADC();
-		PWM_0(2);
-		PWM_0(4);
+		PWM_0(0);
+		PWM_0(1);
 		break;
 
 	case 0x0A:
@@ -293,16 +294,20 @@ void CAN_message_void_Hazard(){
 	time_off_2 = params2[2] * 25;
 	switch(params2[0]){
 	case 0x00:
-	/*
-		PTC->PCOR |= 1<<LedBar_1;
-		PTC->PCOR |= 1<<LedBar_6;*/
+		hazardflag = 0;
 		percentage = 0;
 		Control_ADC();
 		PWM_0(0);
 		PWM_0(1);
+		params2[0] = 0x01;
+		break;
+
+	case 0x01:
+		hazardflag = 0;
 		break;
 
 	case 0x0F:
+		hazardflag = 1;
 		CAN_message_void_Hazard_ON();
 		break;
 	}
