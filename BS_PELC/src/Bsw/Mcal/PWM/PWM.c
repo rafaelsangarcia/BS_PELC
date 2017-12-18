@@ -102,6 +102,7 @@ void FTM1_init(void) {
 }
 
 void FTM0_CH_PWM_init(void) {
+	FTM0->CONTROLS[7].CnSC = 0x00000028; /* FTM0 ch5: edge-aligned PWM, low true pulses */
 	FTM0->CONTROLS[5].CnSC = 0x00000028; /* FTM0 ch5: edge-aligned PWM, low true pulses */
 	FTM0->CONTROLS[4].CnSC = 0x00000028; /* FTM0 ch4: edge-aligned PWM, low true pulses */
 	FTM0->CONTROLS[3].CnSC = 0x00000028; /* FTM0 ch3: edge-aligned PWM, low true pulses */

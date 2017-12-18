@@ -69,4 +69,6 @@ void PORT_init (void) {
 	PORTB->PCR[15]|=PORT_PCR_MUX(2); /* Port B15: MUX = ALT2, FTM0CH1 */
 	PORTB->PCR[16]|=PORT_PCR_MUX(2); /* Port B16: MUX = ALT2, FTM0CH1 */
 	PORTB->PCR[17]|=PORT_PCR_MUX(2); /* Port B17: MUX = ALT2, FTM0CH1 */
+	PORTE->PCR[9]|=PORT_PCR_MUX(2); /* Port B17: MUX = ALT2, FTM0CH1 */
+
 }

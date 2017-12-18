@@ -5,8 +5,8 @@
 /*============================================================================*/
 /*!
  * $Source: CAN_message.h
- * $Revision: 3
- * $Author: Rodrigo Mortera
+ * $Revision: 5
+ * $Author: Rafael Sanchez
  * $Date: 18/DIC/2017
  */
 /*============================================================================*/
@@ -38,6 +38,7 @@
 /*  Rafael Sanchez   |      2             |  Create new variable to mgn sch	  */
 /*  Rafael Sanchez   |      3            |  Create mainLights              	  */
 /*  Rodrigo Mortera  |      4            |  Create Stop                       */
+/*  Rafael Sanchez   |      5            |  Complete function                 */
 /*============================================================================*/
 /*                               OBJECT HISTORY                               */
 /*============================================================================*/
@@ -112,7 +113,7 @@ void CAN_message_void_fill_HazardStruct();
 void CAN_message_void_fill_TurnStruct();
 void CAN_message_void_fill_StopStruct();
 void CAN_message_void_fill_ReverseStruct();
-void test_void();
+void CAN_message_void_MainLights();
 void CAN_message_void_TurnBehavior();
 void CAN_message_void_Stop();
 void CAN_message_void_Hazard();

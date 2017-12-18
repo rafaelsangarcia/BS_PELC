@@ -130,7 +130,6 @@ void SchM_LISTEN_Task ( void ){
 		CAN_message_void_fillParams5();
 		FLEXCAN0_transmit_msg (18,0x04100000,tx_msg_data);
 	}
-
 }
 
 void SchM_MAINLIGHTS_Task(void){
