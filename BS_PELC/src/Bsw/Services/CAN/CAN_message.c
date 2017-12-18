@@ -5,7 +5,7 @@
 /*============================================================================*/
 /*!
  * $Source: CAN_message.c
- * $Revision: 4
+ * $Revision: 6
  * $Author: Rodrigo Mortera
  * $Date: 18/Dic/2017
  */
@@ -39,6 +39,7 @@
 /*  Rafael Sanchez   |      3             |  Merge PWM, prioritize hazard			*/
 /*  Rafael Sanchez   |      4             |  Add mainLightsStruct							*/
 /*  Rodrigo Mortera  |      5             |  Add stopStruct                   */
+/*  Rodrigo Mortera  |      6             |  Add reverseStruct                */
 /*============================================================================*/
 /*                               OBJECT HISTORY                               */
 /*============================================================================*/

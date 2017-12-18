@@ -5,7 +5,7 @@
 /*============================================================================*/
 /*!
  ** $Source: SchM_Tasks.c $
- * $Revision: version 7 $
+ * $Revision: version 9 $
  * $Author: Rodrigo Mortera $
  * $Date: 18/Dic/2017 $
  */
@@ -42,6 +42,7 @@
 /*  Rafael Sanchez   |      6             |  Merge PWM, prioritize hazard			*/
 /*  Rafael Sanchez   |      7             |  Updates Task and add mainlight			*/
 /*  Rodrigo Mortera  |      8             |  Add Stop command                 */
+/*  Rodrigo Mortera  |      9             |  Add reverse command              */
 /*============================================================================*/
 /*                               OBJECT HISTORY                               */
 /*============================================================================*/
