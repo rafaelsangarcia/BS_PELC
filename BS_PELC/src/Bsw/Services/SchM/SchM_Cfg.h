@@ -6,8 +6,8 @@
 /*!
  * $Source: SchM_Cfg.h
  * $Revision: 3
- * $Author: Rafael Sanchez
- * $Date: 17/DIC/2017
+ * $Author: Rodrigo Mortera
+ * $Date: 18/DIC/2017
  */
 /*============================================================================*/
 /* DESCRIPTION :                                                              */
@@ -37,6 +37,7 @@
 /*  Rodrigo Mortera   |      1             |  Use the template and add the code*/
 /*  Roafael Sanchez   |      2             |  test different mask 						*/
 /*  Roafael Sanchez   |      3             |  Add mask to mainlight 						*/
+/*  Rodrigo Mortera   |      4             |  Add Task Stop                   */
 /*============================================================================*/
 /*                               OBJECT HISTORY                               */
 /*============================================================================*/
@@ -64,6 +65,8 @@ typedef enum{
 	SCHM_OFFSET_MAINLIGHTS = (T_UBYTE) 1u,
 	SCHM_OFFSET_HAZARD = (T_UBYTE) 2u,
 	SCHM_OFFSET_TURN = (T_UBYTE) 3u,
+	SCHM_OFFSET_STOP = (T_UBYTE) 5u,
+
 
 } Schm_TaskOffsetType;
 
@@ -72,6 +75,7 @@ typedef enum{
 	SCHM_MASK_MAINLIGHTS = 7,
 	SCHM_MASK_HAZARD = 15,
 	SCHM_MASK_TURN = 31,
+	SCHM_MASK_STOP = 127,
 }SchM_TaskMaskType;
 
 typedef enum {
@@ -80,6 +84,7 @@ typedef enum {
 	SCHM_TASKID_MAINLIGHTS,
 	SCHM_TASKID_HAZARD,
 	SCHM_TASKID_TURN,
+	SCHM_TASKID_STOP,
 }SchM_TaskIDType;
 
 typedef struct{

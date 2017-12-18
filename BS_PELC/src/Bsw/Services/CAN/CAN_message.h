@@ -6,8 +6,8 @@
 /*!
  * $Source: CAN_message.h
  * $Revision: 3
- * $Author: Rafael Sanchez
- * $Date: 15/DIC/2017
+ * $Author: Rodrigo Mortera
+ * $Date: 18/DIC/2017
  */
 /*============================================================================*/
 /* DESCRIPTION :                                                              */
@@ -37,6 +37,7 @@
 /*  Rafael Sanchez   |      1             |  Add Prototype for Hazard and turn*/
 /*  Rafael Sanchez   |      2             |  Create new variable to mgn sch	  */
 /*  Rafael Sanchez   |      3            |  Create mainLights              	  */
+/*  Rodrigo Mortera  |      4            |  Create Stop                       */
 /*============================================================================*/
 /*                               OBJECT HISTORY                               */
 /*============================================================================*/
@@ -96,9 +97,9 @@ typedef struct
 
 /* Exported Variables */
 unsigned char *ptr_rx, *ptr_struct, *ptr_hazard, *ptr_turn;
-bytes_struct rx_bytes, hazardStruct, listenStruct, mainLightsStruct, turnStruct;
+bytes_struct rx_bytes, hazardStruct, listenStruct, mainLightsStruct, turnStruct, stopStruct;
 //percentage_struct percentage_values;
-unsigned char params[3], params2[3], params3[3], params4[3];
+unsigned char params[3], params2[3], params3[3], params4[3], params5[3];
 int hazardflag;
 /*============================================================================*/
 
@@ -109,8 +110,10 @@ void CAN_message_void_fill_ListenStruct();
 void CAN_message_void_fill_MainLightsStruct();
 void CAN_message_void_fill_HazardStruct();
 void CAN_message_void_fill_TurnStruct();
+void CAN_message_void_fill_StopStruct();
 void test_void();
 void CAN_message_void_TurnBehavior();
+void CAN_message_void_Stop();
 void CAN_message_void_Hazard();
 /*============================================================================*/
 #endif /* BSW_SERVICES_SCHM_SCHM_CFG_H_ */

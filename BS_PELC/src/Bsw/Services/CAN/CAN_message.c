@@ -6,8 +6,8 @@
 /*!
  * $Source: CAN_message.c
  * $Revision: 4
- * $Author: Rafael Sanchez
- * $Date: 17/Dic/2017
+ * $Author: Rodrigo Mortera
+ * $Date: 18/Dic/2017
  */
 /*============================================================================*/
 /* DESCRIPTION :                                                              */
@@ -38,6 +38,7 @@
 /*  Rafael Sanchez   |      2             |  fix Scheduler					 				  */
 /*  Rafael Sanchez   |      3             |  Merge PWM, prioritize hazard			*/
 /*  Rafael Sanchez   |      4             |  Add mainLightsStruct							*/
+/*  Rodrigo Mortera  |      5             |  Add stopStruct                   */
 /*============================================================================*/
 /*                               OBJECT HISTORY                               */
 /*============================================================================*/
@@ -101,6 +102,13 @@ void CAN_message_void_fillParams4(){
 	ptr_struct= &mainLightsStruct;
 	for(i = 0; i < mainLightsStruct.byte1; i++){
 		params4[i] = *(ptr_struct + 1 + i);
+	}
+}
+
+void CAN_message_void_fillParams5(){
+	ptr_struct= &stopStruct;
+	for(i = 0; i < stopStruct.byte1; i++){
+		params5[i] = *(ptr_struct + 1 + i);
 	}
 }
 
@@ -195,6 +203,11 @@ void CAN_message_void_PWM_Turn_Right_REAR(int percentage){
 void CAN_message_void_PWM_Turn_Left_REAR(int percentage){
 	Control_ADC(percentage);
 	PWM_0(4);
+}
+
+void CAN_message_void_PWM_Stop(int percentage){
+	Control_ADC(percentage);
+	PWM_0(5);
 }
 
 void CAN_message_void_Hazard_ON(){
@@ -296,6 +309,22 @@ void CAN_message_void_fill_TurnStruct(){
 	}
 }
 
+void CAN_message_void_fill_StopStruct(){
+	ptr_rx = rx_msg_data;
+	ptr_rx = ptr_rx + 3;
+
+	ptr_struct = &stopStruct;
+
+	for (i = 0 ; i < 8; i++){
+		if ( i == 4 ){
+			ptr_rx = ptr_rx + 8;
+		}
+		*ptr_struct = *ptr_rx;
+		ptr_struct++;
+		ptr_rx--;
+	}
+}
+
 void test_void() {
 	ptr_struct = &rx_bytes;
 	for (i = 0; i < rx_bytes.byte1; i++ ){
@@ -339,8 +368,8 @@ void CAN_message_void_Hazard(){
 	switch(params2[0]){
 	case 0x00:
 		hazardflag = 0;
-	 	CAN_message_void_PWM_Hazard_FRONT(percent_MIN);
-	 	CAN_message_void_PWM_Hazard_REAR(0);
+		CAN_message_void_PWM_Hazard_FRONT(percent_MIN);
+		CAN_message_void_PWM_Hazard_REAR(0);
 		params2[0] = 0x01;
 		break;
 
@@ -355,14 +384,27 @@ void CAN_message_void_Hazard(){
 	}
 }
 
+void CAN_message_void_Stop(){
+	switch (params5[0]) {
+	case 0x00:
+		CAN_message_void_PWM_Stop(percent_MIN);
+		break;
+
+	case 0x0F:
+		CAN_message_void_PWM_Stop(100);
+		break;
+
+	}
+}
+
 void CAN_message_void_MainLights(){
 	switch (params4[0]) {
-		case 0x01:
+	case 0x01:
 		percent_MAX = 100;
 		percent_MIN = 0;
 		break;
 
-		case 0x02:
+	case 0x02:
 		percent_MAX = 100;
 		percent_MIN = 20;
 		break;

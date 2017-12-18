@@ -6,8 +6,8 @@
 /*!
  ** $Source: SchM_Tasks.c $
  * $Revision: version 7 $
- * $Author: Rafael Sanchez $
- * $Date: 17/Dic/2017 $
+ * $Author: Rodrigo Mortera $
+ * $Date: 18/Dic/2017 $
  */
 /*============================================================================*/
 /* DESCRIPTION :                                                              */
@@ -41,6 +41,7 @@
 /*  Rafael Sanchez   |      5	            | Fix Scheduler v2   				        */
 /*  Rafael Sanchez   |      6             |  Merge PWM, prioritize hazard			*/
 /*  Rafael Sanchez   |      7             |  Updates Task and add mainlight			*/
+/*  Rodrigo Mortera  |      8             |  Add Stop command                 */
 /*============================================================================*/
 /*                               OBJECT HISTORY                               */
 /*============================================================================*/
@@ -113,6 +114,15 @@ void SchM_LISTEN_Task ( void ){
 		CAN_message_void_fillParams3();
 		FLEXCAN0_transmit_msg (18,0x04100000,tx_msg_data);
 	}
+
+	if ((CAN0->IFLAG1 >> 4) & 1){
+			FLEXCAN0_receive_msg (4,rx_msg_data);
+			tx_msg_data[0]=rx_msg_data[0];
+			tx_msg_data[1]=rx_msg_data[1];
+			CAN_message_void_fill_StopStruct();
+			CAN_message_void_fillParams5();
+			FLEXCAN0_transmit_msg (18,0x04100000,tx_msg_data);
+		}
 }
 
 void SchM_MAINLIGHTS_Task(void){
@@ -127,6 +137,11 @@ void SchM_TURN_Task(void){
 	if (hazardflag == 0){
 		CAN_message_void_TurnBehavior();
 	}
+}
+
+void SchM_STOP_Task(void){
+		CAN_message_void_Stop();
+
 }
 /*
 

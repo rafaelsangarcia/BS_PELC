@@ -6,8 +6,8 @@
 /*!
  * $Source: SchM_Cfg.c
  * $Revision: 2
- * $Author: Rafael Sanchez
- * $Date: 17/DIC/2017
+ * $Author: Rodrigo Mortera
+ * $Date: 18/DIC/2017
  */
 /*============================================================================*/
 /* DESCRIPTION :                                                              */
@@ -16,7 +16,7 @@
     detailed
     multiline
     description of the file
-*/
+ */
 /*============================================================================*/
 /* COPYRIGHT (C) CONTINENTAL AUTOMOTIVE 2014                                  */
 /* AUTOMOTIVE GROUP, Interior Division, Body and Security                     */
@@ -36,6 +36,7 @@
 /*----------------------------------------------------------------------------*/
 /*  Rodrigo Mortera   |      1             |  Use the template and add the code*/
 /*  Rafael Sanchez    |      2             |  Add mainlight task description*/
+/*  Rodrigo Mortera   |      3             |  Add Stop Task                   */
 /*============================================================================*/
 /*                               OBJECT HISTORY                               */
 /*============================================================================*/
@@ -46,7 +47,7 @@
  *  Created on: 15/11/2017
  *      Author: uid87753
  */
- /* ============================================================================*/
+/* ============================================================================*/
 
 /* Includes */
 #include "SchM.h"
@@ -82,6 +83,12 @@ const SchM_TaskConfigType TaskDescriptor[]=
 				SCHM_MASK_TURN,
 				SCHM_OFFSET_TURN,
 				SchM_TURN_Task
+		},
+		{
+				SCHM_TASKID_STOP,
+				SCHM_MASK_STOP,
+				SCHM_OFFSET_STOP,
+				SchM_STOP_Task
 		}/*,
 		{
 				SCHM_TASKID_25MS,
@@ -138,4 +145,4 @@ const SchM_ConfigType SchedulerConfig =
 
 
 
- /* Notice: the file ends with a blank new line to avoid compiler warnings */
+/* Notice: the file ends with a blank new line to avoid compiler warnings */
