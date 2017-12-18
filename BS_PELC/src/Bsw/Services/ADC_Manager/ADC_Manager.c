@@ -8,11 +8,19 @@ void Control_ADC (int percentage) {
 	dutyCycle = (1251*percentage)/100;             //(read_adc_chx()*1251)/5000;
 }
 
-// void Control_ADC_clean_flag (void) {
-// 	convertAdcChan(29);                   /* Convert chan 29, Vrefsh */
-// 	while(adc_complete()==0){}            /* Wait for conversion complete flag */
-// 	dutyCycle = read_adc_chx();       /* Get channel's conversion results in mv */
-// }
+int Sensor(){
+	convertAdcChan(12); /*use with pot*/
+	//convertAdcChan(1);
+	while(adc_complete()==0){}
+	value = (read_adc_chx()*100)/5000;
+	return value;
+}
+
+void Control_ADC_clean_flag (void) {
+	convertAdcChan(29);                   /* Convert chan 29, Vrefsh */
+	while(adc_complete()==0){}            /* Wait for conversion complete flag */
+	//dutyCycle = read_adc_chx();       /* Get channel's conversion results in mv */
+}
 
 void PWM_0 (int channel){
 	if (dutyCycle >= 0){
