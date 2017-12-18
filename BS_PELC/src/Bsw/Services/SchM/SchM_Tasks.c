@@ -105,7 +105,6 @@ void SchM_LISTEN_Task ( void ){
 		CAN_message_void_fillParams2();
 		FLEXCAN0_transmit_msg (17,0x15540000,tx_msg_data);
 	}
-
 	if ((CAN0->IFLAG1 >> 2) & 1){
 		FLEXCAN0_receive_msg (2,rx_msg_data);
 		tx_msg_data[0]=rx_msg_data[0];
@@ -114,35 +113,62 @@ void SchM_LISTEN_Task ( void ){
 		CAN_message_void_fillParams3();
 		FLEXCAN0_transmit_msg (18,0x04100000,tx_msg_data);
 	}
-
+	if ((CAN0->IFLAG1 >> 3) & 1){
+		FLEXCAN0_receive_msg (3,rx_msg_data);
+		tx_msg_data[0]=rx_msg_data[0];
+		tx_msg_data[1]=rx_msg_data[1];
+		CAN_message_void_fill_ReverseStruct();
+		CAN_message_void_fillParams6();
+		FLEXCAN0_transmit_msg (18,0x04100000,tx_msg_data);
+	}
 	if ((CAN0->IFLAG1 >> 4) & 1){
-			FLEXCAN0_receive_msg (4,rx_msg_data);
-			tx_msg_data[0]=rx_msg_data[0];
-			tx_msg_data[1]=rx_msg_data[1];
-			CAN_message_void_fill_StopStruct();
-			CAN_message_void_fillParams5();
-			FLEXCAN0_transmit_msg (18,0x04100000,tx_msg_data);
-		}
+		FLEXCAN0_receive_msg (4,rx_msg_data);
+		tx_msg_data[0]=rx_msg_data[0];
+		tx_msg_data[1]=rx_msg_data[1];
+		CAN_message_void_fill_StopStruct();
+		CAN_message_void_fillParams5();
+		FLEXCAN0_transmit_msg (18,0x04100000,tx_msg_data);
+	}
+
 }
 
 void SchM_MAINLIGHTS_Task(void){
+
 	CAN_message_void_MainLights();
 }
 
 void SchM_HAZARD_Task(void){
+
 	CAN_message_void_Hazard();
 }
 
 void SchM_TURN_Task(void){
+
 	if (hazardflag == 0){
 		CAN_message_void_TurnBehavior();
 	}
 }
 
 void SchM_STOP_Task(void){
-		CAN_message_void_Stop();
+
+	CAN_message_void_Stop();
+	CAN_message_void_Reverse();
 
 }
+
+//void SchM_REVERSE_Task(void){
+//	PTD->PTOR |= 1<<BlueLed;
+/*if ((CAN0->IFLAG1 >> 3) & 1){
+		FLEXCAN0_receive_msg (3,rx_msg_data);
+		tx_msg_data[0]=rx_msg_data[0];
+		tx_msg_data[1]=rx_msg_data[1];
+		CAN_message_void_fill_ReverseStruct();
+		CAN_message_void_fillParams6();
+		FLEXCAN0_transmit_msg (18,0x04100000,tx_msg_data);
+	}
+	CAN_message_void_Reverse();*/
+
+//}
 /*
 
 void SchM_12p5ms_Task ( void ){

@@ -112,6 +112,13 @@ void CAN_message_void_fillParams5(){
 	}
 }
 
+void CAN_message_void_fillParams6(){
+	ptr_struct= &reverseStruct;
+	for(i = 0; i < reverseStruct.byte1; i++){
+		params6[i] = *(ptr_struct + 1 + i);
+	}
+}
+
 void CAN_message_void_Turn_Right(){
 	switch(mode_2){
 	case 0:
@@ -208,6 +215,11 @@ void CAN_message_void_PWM_Turn_Left_REAR(int percentage){
 void CAN_message_void_PWM_Stop(int percentage){
 	Control_ADC(percentage);
 	PWM_0(5);
+}
+
+void CAN_message_void_PWM_Reverse(int percentage){
+	Control_ADC(percentage);
+	PWM_0(6);
 }
 
 void CAN_message_void_Hazard_ON(){
@@ -325,6 +337,22 @@ void CAN_message_void_fill_StopStruct(){
 	}
 }
 
+void CAN_message_void_fill_ReverseStruct(){
+	ptr_rx = rx_msg_data;
+	ptr_rx = ptr_rx + 3;
+
+	ptr_struct = &reverseStruct;
+
+	for (i = 0 ; i < 8; i++){
+		if ( i == 4 ){
+			ptr_rx = ptr_rx + 8;
+		}
+		*ptr_struct = *ptr_rx;
+		ptr_struct++;
+		ptr_rx--;
+	}
+}
+
 void test_void() {
 	ptr_struct = &rx_bytes;
 	for (i = 0; i < rx_bytes.byte1; i++ ){
@@ -392,6 +420,19 @@ void CAN_message_void_Stop(){
 
 	case 0x0F:
 		CAN_message_void_PWM_Stop(100);
+		break;
+
+	}
+}
+
+void CAN_message_void_Reverse(){
+	switch (params6[0]) {
+	case 0x00:
+		CAN_message_void_PWM_Reverse(percent_MIN);
+		break;
+
+	case 0x0F:
+		CAN_message_void_PWM_Reverse(100);
 		break;
 
 	}

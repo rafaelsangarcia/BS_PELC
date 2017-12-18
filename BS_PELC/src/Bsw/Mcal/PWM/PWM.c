@@ -9,7 +9,7 @@ void FTM0_init(void) {
 	PCC->PCCn[PCC_FTM0_INDEX] |= PCC_PCCn_PCS(0b001)/* Clock Src=1, 8 MHz SOSCDIV1_CLK */
 				| PCC_PCCn_CGC_MASK; /* Enable clock for FTM regs */
 	FTM0->MODE |= FTM_MODE_WPDIS_MASK; /* Write protect to registers disabled (default) */
-	FTM0->SC = 0x003F0007; /*Enable all the channels in PWM (0,1,2,3,4,5)*/
+	FTM0->SC = 0x00FF0007; /*Enable all the channels in PWM (0,1,2,3,4,5)*/
 						   /* TOIE (Timer Overflow Interrupt Ena) = 0 (default) */
 						   /* CPWMS (Center aligned PWM Select) = 0 (default, up count) */
 						   /* CLKS (Clock source) = 0 (default, no clock; FTM disabled) */
@@ -45,6 +45,7 @@ void FTM0_CH_PWM_init(void) {
 	FTM0->CONTROLS[2].CnSC = 0x00000028; /* FTM0 ch2: edge-aligned PWM, low true pulses */
 	FTM0->CONTROLS[1].CnSC = 0x00000028; /* FTM0 ch1: edge-aligned PWM, low true pulses */
 	FTM0->CONTROLS[0].CnSC = 0x00000028; /* FTM0 ch0: edge-aligned PWM, low true pulses */
+	FTM0->CONTROLS[6].CnSC = 0x00000028; /* FTM0 ch5: edge-aligned PWM, low true pulses */
 }
 
 void FTM1_CH_PWM_init(void) {

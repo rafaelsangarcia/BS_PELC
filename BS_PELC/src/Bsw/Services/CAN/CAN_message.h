@@ -97,9 +97,9 @@ typedef struct
 
 /* Exported Variables */
 unsigned char *ptr_rx, *ptr_struct, *ptr_hazard, *ptr_turn;
-bytes_struct rx_bytes, hazardStruct, listenStruct, mainLightsStruct, turnStruct, stopStruct;
+bytes_struct rx_bytes, hazardStruct, listenStruct, mainLightsStruct, turnStruct, stopStruct, reverseStruct;
 //percentage_struct percentage_values;
-unsigned char params[3], params2[3], params3[3], params4[3], params5[3];
+unsigned char params[3], params2[3], params3[3], params4[3], params5[3], params6[3];
 int hazardflag;
 /*============================================================================*/
 
@@ -111,9 +111,11 @@ void CAN_message_void_fill_MainLightsStruct();
 void CAN_message_void_fill_HazardStruct();
 void CAN_message_void_fill_TurnStruct();
 void CAN_message_void_fill_StopStruct();
+void CAN_message_void_fill_ReverseStruct();
 void test_void();
 void CAN_message_void_TurnBehavior();
 void CAN_message_void_Stop();
 void CAN_message_void_Hazard();
+void CAN_message_void_Reverse();
 /*============================================================================*/
 #endif /* BSW_SERVICES_SCHM_SCHM_CFG_H_ */

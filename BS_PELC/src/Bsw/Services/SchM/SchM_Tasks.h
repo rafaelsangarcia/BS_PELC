@@ -68,6 +68,8 @@ extern void SchM_MAINLIGHTS_Task ( void );
 extern void SchM_HAZARD_Task ( void );
 extern void SchM_TURN_Task ( void );
 extern void SchM_STOP_Task ( void );
+extern void SchM_REVERSE_Task ( void );
+
 /*
 extern void SchM_6p25ms_Task ( void );
 extern void SchM_12p5ms_Task ( void );

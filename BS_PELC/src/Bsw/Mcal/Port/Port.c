@@ -54,7 +54,7 @@ void PORT_init (void) {
 	PTB->PCOR |= 1<<LedBar_4;//15
 	PTB->PCOR |= 1<<LedBar_5;//16
 	PTC->PCOR |= 1<<LedBar_6;//14*/
-
+	PORTE->PCR[8]|=PORT_PCR_MUX(2); /* Port B17: MUX = ALT2, FTM0CH1 */
 	PORTD->PCR[1]|=PORT_PCR_MUX(2); /* Port D1: MUX = ALT2, FTM0CH1 */
 	PORTC->PCR[1]|=PORT_PCR_MUX(2); /* Port C1: MUX = ALT2, FTM0CH1 */
 	PORTC->PCR[2]|=PORT_PCR_MUX(2); /* Port C2: MUX = ALT2, FTM0CH1 */

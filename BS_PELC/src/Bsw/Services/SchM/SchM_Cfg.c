@@ -91,6 +91,12 @@ const SchM_TaskConfigType TaskDescriptor[]=
 				SchM_STOP_Task
 		}/*,
 		{
+				SCHM_TASKID_REVERSE,
+				SCHM_MASK_REVERSE,
+				SCHM_OFFSET_REVERSE,
+				SchM_REVERSE_Task
+		}/*,
+		{
 				SCHM_TASKID_25MS,
 				SCHM_MASK_25MS,
 				SCHM_OFFSET_25MS,
