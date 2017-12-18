@@ -75,9 +75,9 @@ typedef struct
 
 
 /* Exported Variables */
-unsigned char  *ptr_rx, *ptr_struct, *ptr_hazard, *ptr_turn;
-bytes_struct rx_bytes, hazardStruct, listenStruct, turnStruct;
-unsigned char params[3], params2[3], params3[3];
+unsigned char  *ptr_rx, *ptr_struct, *ptr_hazard, *ptr_turn, *ptr_stop;
+bytes_struct rx_bytes, hazardStruct, listenStruct, turnStruct, stopStruct;
+unsigned char params[3], params2[3], params3[3], params4[3];
 int hazardflag;
 /*============================================================================*/
 
@@ -87,8 +87,10 @@ void CAN_message_void_fillStruct();
 void CAN_message_void_fill_ListenStruct();
 void CAN_message_void_fill_HazardStruct();
 void CAN_message_void_fill_TurnStruct();
+void CAN_message_void_fill_StopStruct();
 void test_void();
 void CAN_message_void_TurnBehavior();
 void CAN_message_void_Hazard();
+void CAN_message_void_Stop();
 /*============================================================================*/
 #endif /* BSW_SERVICES_SCHM_SCHM_CFG_H_ */

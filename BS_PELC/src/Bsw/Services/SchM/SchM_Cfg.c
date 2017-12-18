@@ -75,13 +75,13 @@ const SchM_TaskConfigType TaskDescriptor[]=
 				SCHM_MASK_TURN,
 				SCHM_OFFSET_TURN,
 				SchM_TURN_Task
-		}/*,
-		{
-				SCHM_TASKID_25MS,
-				SCHM_MASK_25MS,
-				SCHM_OFFSET_25MS,
-				SchM_25ms_Task
 		},
+		{
+				SCHM_TASKID_STOP,
+				SCHM_MASK_STOP,
+				SCHM_OFFSET_STOP,
+				SchM_STOP_Task
+		}/*,
 		{
 				SCHM_TASKID_50MS,
 				SCHM_MASK_50MS,

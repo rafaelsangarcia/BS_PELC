@@ -56,10 +56,10 @@
 /*============================================================================*/
 /* Variables */
 int i = 0;
-unsigned char mode = 0, mode_2=0;
+unsigned char mode = 0, mode_2=0, mode_3=0;
 int cont_1, cont_2, cont_3 = 0;
 
-int time_on, time_off, time_on_2, time_off_2, time_on_3, time_off_3 = 0;
+int time_on, time_off, time_on_2, time_off_2, time_on_3, time_off_3 = 0,time_on_4, time_off_4 = 0;
 /*============================================================================*/
 /* Private functions prototypes */
 void CAN_message_void_fillParams();
@@ -90,6 +90,13 @@ void CAN_message_void_fillParams3(){
 	ptr_struct= &turnStruct;
 	for(i = 0; i < turnStruct.byte1; i++){
 		params3[i] = *(ptr_struct + 1 + i);
+	}
+}
+
+void CAN_message_void_fillParams4(){
+	ptr_struct= &stopStruct;
+	for(i = 0; i < stopStruct.byte1; i++){
+		params4[i] = *(ptr_struct + 1 + i);
 	}
 }
 
@@ -200,6 +207,8 @@ void CAN_message_void_Hazard_ON(){
 		break;
 	}
 }
+
+
 /*============================================================================*/
 /* Exported functions */
 void CAN_message_void_fillStruct(){
@@ -239,6 +248,22 @@ void CAN_message_void_fill_TurnStruct(){
 	ptr_rx = ptr_rx + 3;
 
 	ptr_struct = &turnStruct;
+
+	for (i = 0 ; i < 8; i++){
+		if ( i == 4 ){
+			ptr_rx = ptr_rx + 8;
+		}
+		*ptr_struct = *ptr_rx;
+		ptr_struct++;
+		ptr_rx--;
+	}
+}
+
+void CAN_message_void_fill_StopStruct(){
+	ptr_rx = rx_msg_data;
+	ptr_rx = ptr_rx + 3;
+
+	ptr_struct = &stopStruct;
 
 	for (i = 0 ; i < 8; i++){
 		if ( i == 4 ){
@@ -313,5 +338,26 @@ void CAN_message_void_Hazard(){
 	}
 }
 
+void CAN_message_void_Stop(){
+	//CAN_message_void_fillParams2();
+	/*time_on_4 = params4[1] * 6;
+	time_off_4 = params4[2] * 6;*/
+	switch(params4[0]){
+	case 0x00:
+		percentage = 0;
+		Control_ADC();
+		PWM_0(4);
+		break;
+
+
+	case 0x0F:
+		percentage = 100;
+		Control_ADC();
+		PWM_0(4);
+		//position(min)
+		//tercera luz(100)
+		break;
+	}
+}
 /*============================================================================*/
 /* Notice: the file ends with a blank new line to avoid compiler warnings */

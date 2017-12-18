@@ -92,7 +92,7 @@ void SchM_LISTEN_Task ( void ){
 		tx_msg_data[1]=rx_msg_data[1];
 		CAN_message_void_fill_HazardStruct();
 		CAN_message_void_fillParams2();
-		FLEXCAN0_transmit_msg (0,0x15540000,tx_msg_data);
+		FLEXCAN0_transmit_msg (17,0x15540000,tx_msg_data);
 	}
 	if ((CAN0->IFLAG1 >> 3) & 1)
 	{
@@ -101,8 +101,18 @@ void SchM_LISTEN_Task ( void ){
 		tx_msg_data[1]=rx_msg_data[1];
 		CAN_message_void_fill_TurnStruct();
 		CAN_message_void_fillParams3();
-		FLEXCAN0_transmit_msg (2,0x04100000,tx_msg_data );
+		FLEXCAN0_transmit_msg (17,0x04100000,tx_msg_data );
 	}
+
+	if ((CAN0->IFLAG1 >> 0) & 1)
+		{
+			FLEXCAN0_receive_msg (0,rx_msg_data);
+			tx_msg_data[0]=rx_msg_data[0];
+			tx_msg_data[1]=rx_msg_data[1];
+			CAN_message_void_fill_StopStruct();
+			CAN_message_void_fillParams4();
+			FLEXCAN0_transmit_msg (18,0x15550000,tx_msg_data );
+		}
 	/*else{
 		for(j = 0; j<3 ; j++){
 		params2[j];
@@ -139,6 +149,10 @@ void SchM_TURN_Task(void){
 		CAN_message_void_TurnBehavior();
 	}
 
+}
+
+void SchM_STOP_Task(void){
+	CAN_message_void_Stop();
 }
 /*
 

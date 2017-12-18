@@ -62,6 +62,7 @@ typedef enum{
 	SCHM_OFFSET_LISTEN = (T_UBYTE) 0u,
 	SCHM_OFFSET_HAZARD = (T_UBYTE) 1u,
 	SCHM_OFFSET_TURN = (T_UBYTE) 2u,
+	SCHM_OFFSET_STOP = (T_UBYTE) 3u,
 
 } Schm_TaskOffsetType;
 
@@ -69,6 +70,7 @@ typedef enum{
 	SCHM_MASK_LISTEN = 3,
 	SCHM_MASK_HAZARD = 7,
 	SCHM_MASK_TURN = 15,
+	SCHM_MASK_STOP = 31
 }SchM_TaskMaskType;
 
 typedef enum {
@@ -76,6 +78,7 @@ typedef enum {
 	SCHM_TASKID_LISTEN,
 	SCHM_TASKID_HAZARD,
 	SCHM_TASKID_TURN,
+	SCHM_TASKID_STOP,
 }SchM_TaskIDType;
 
 typedef struct{
