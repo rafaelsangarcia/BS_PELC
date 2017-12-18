@@ -128,12 +128,12 @@ void CAN_message_void_fillParams5(){
 	}
 }
 
-<<<<<<< HEAD
 void CAN_message_void_fillParams6(){
 	ptr_struct= &reverseStruct;
 	for(i = 0; i < reverseStruct.byte1; i++){
 		params6[i] = *(ptr_struct + 1 + i);
-=======
+	}
+}
 
 void CAN_message_void_Hazard_ON(){
 	switch(mode){
@@ -162,7 +162,6 @@ void CAN_message_void_Hazard_ON(){
 			mode = 1;
 		}
 		break;
->>>>>>> Dev
 	}
 }
 
@@ -303,48 +302,15 @@ void CAN_message_void_PWM_Stop(int percentage){
 	PWM_0(5);
 }
 
-<<<<<<< HEAD
 void CAN_message_void_PWM_Reverse(int percentage){
 	Control_ADC(percentage);
 	PWM_0(6);
 }
 
-void CAN_message_void_Hazard_ON(){
-	switch(mode){
-	case 0:
-		CAN_message_void_PWM_Hazard_FRONT(percent_MIN);
-		CAN_message_void_PWM_Hazard_REAR(0);
-		cont_2++;
-		if(cont_2 >= time_on_2){
-			mode = 1;
-			cont_2 = 0;
-		}
-		else {
-			mode = 0;
-		}
-		break;
-
-	case 1:
-		CAN_message_void_PWM_Hazard_FRONT(100);
-		CAN_message_void_PWM_Hazard_REAR(100);
-		cont_2++;
-		if(cont_2 >= time_off_2){
-			mode = 0;
-			cont_2 = 0;
-		}
-		else {
-			mode = 1;
-		}
-		break;
-	}
-=======
 void CAN_message_void_PWM_Heads(int percentage){
 	Control_ADC(percentage);
 	PWM_0(7);
->>>>>>> Dev
 }
-
-
 
 /*============================================================================*/
 /* Exported functions */
@@ -430,7 +396,6 @@ void CAN_message_void_fill_StopStruct(){
 	}
 }
 
-<<<<<<< HEAD
 void CAN_message_void_fill_ReverseStruct(){
 	ptr_rx = rx_msg_data;
 	ptr_rx = ptr_rx + 3;
@@ -446,22 +411,6 @@ void CAN_message_void_fill_ReverseStruct(){
 		ptr_rx--;
 	}
 }
-
-void test_void() {
-	ptr_struct = &rx_bytes;
-	for (i = 0; i < rx_bytes.byte1; i++ ){
-		if ( *(ptr_struct + 1 + i) == 0x01){
-			PTD->PCOR |= 1<<15;
-			PTD->PSOR |= 1<<16;
-		}
-		else if (*(ptr_struct + 1 + i)  == 0x14){
-			PTD->PSOR |= 1<<15;
-			PTD->PCOR |= 1<<16;
-		}
-	}
-}
-=======
->>>>>>> Dev
 
 void CAN_message_void_TurnBehavior(){
 	//CAN_message_void_fillParams3();
