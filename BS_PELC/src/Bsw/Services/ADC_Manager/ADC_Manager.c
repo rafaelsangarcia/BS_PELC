@@ -8,6 +8,12 @@ void Control_ADC (void) {
 	dutyCycle = (1251*percentage)/100;             //(read_adc_chx()*1251)/5000;
 }
 
+void Control_Duty (int percentage) {
+	/*convertAdcChan(12);
+	while(adc_complete()==0){}*/
+	dutyCycle = (1251*percentage)/100;             //(read_adc_chx()*1251)/5000;
+}
+
 // void Control_ADC_clean_flag (void) {
 // 	convertAdcChan(29);                   /* Convert chan 29, Vrefsh */
 // 	while(adc_complete()==0){}            /* Wait for conversion complete flag */

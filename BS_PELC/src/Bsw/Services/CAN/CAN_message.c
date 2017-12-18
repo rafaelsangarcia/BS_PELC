@@ -344,20 +344,27 @@ void CAN_message_void_Stop(){
 	time_off_4 = params4[2] * 6;*/
 	switch(params4[0]){
 	case 0x00:
-		percentage = 0;
+		/*percentage = 0;
 		Control_ADC();
-		PWM_0(4);
+		PWM_0(5);*/
+		CAN_message_void_PWM_Rear_Stop(00);
 		break;
 
 
 	case 0x0F:
-		percentage = 100;
+		/*percentage = 100;
 		Control_ADC();
-		PWM_0(4);
+		PWM_0(5);*/
+		CAN_message_void_PWM_Rear_Stop(100);
 		//position(min)
 		//tercera luz(100)
 		break;
 	}
+}
+
+void CAN_message_void_PWM_Rear_Stop(int percentage){
+	Control_Duty(percentage);
+	PWM_0(5);
 }
 /*============================================================================*/
 /* Notice: the file ends with a blank new line to avoid compiler warnings */

@@ -40,6 +40,7 @@
 /*  Rafael Sanchez   |      4	            | Fix Scheduler	   				 				  */
 /*  Rafael Sanchez   |      5	            | Fix Scheduler v2   				        */
 /*  Rafael Sanchez   |      6             |  Merge PWM, prioritize hazard			*/
+/*  Rodrigo Mortera  |      7             |  Add Stop function                */
 /*============================================================================*/
 /*                               OBJECT HISTORY                               */
 /*============================================================================*/

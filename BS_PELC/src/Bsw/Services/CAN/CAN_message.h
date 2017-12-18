@@ -92,5 +92,6 @@ void test_void();
 void CAN_message_void_TurnBehavior();
 void CAN_message_void_Hazard();
 void CAN_message_void_Stop();
+void CAN_message_void_PWM_Rear_Stop();
 /*============================================================================*/
 #endif /* BSW_SERVICES_SCHM_SCHM_CFG_H_ */
