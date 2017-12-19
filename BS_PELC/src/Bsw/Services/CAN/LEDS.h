@@ -50,27 +50,28 @@
  *      Author: uid87753
  */
  /* ============================================================================*/
- #ifndef BSW_SERVICES_CAN_message_H_
- #define BSW_SERVICES_CAN_message_H_
+ #ifndef BSW_SERVICES_CAN_CAN_LEDS_H_
+ #define BSW_SERVICES_CAN_CAN_LEDS_H_
 
 /* Includes */
 #include "Std_Types.h"
-#include "LEDS.h"
 #include "General.h"
 #include "ADC_Manager.h"
-#include "params.h"
-#include "structs.h"
+
 /*============================================================================*/
 /* Constants and types */
 /*============================================================================*/
 /* Exported Variables */
-int hazardflag;
+
 /*============================================================================*/
 /* Exported functions prototypes */
-void CAN_message_void_MainLights();
-void CAN_message_void_TurnBehavior();
-void CAN_message_void_Stop();
-void CAN_message_void_Hazard();
-void CAN_message_void_Reverse();
+void CAN_message_void_PWM_Hazard_FRONT(int);
+void CAN_message_void_PWM_Hazard_REAR(int);
+void CAN_message_void_PWM_Turn_Right_FRONT(int);
+void CAN_message_void_PWM_Turn_Right_REAR(int);
+void CAN_message_void_PWM_Turn_Left_FRONT(int);
+void CAN_message_void_PWM_Turn_Left_REAR(int);
+void CAN_message_void_PWM_Stop(int);
+void CAN_message_void_PWM_Heads(int);
 /*============================================================================*/
 #endif /* BSW_SERVICES_SCHM_SCHM_CFG_H_ */

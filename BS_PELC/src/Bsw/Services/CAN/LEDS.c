@@ -4,10 +4,10 @@
 /*                        OBJECT SPECIFICATION                                */
 /*============================================================================*/
 /*!
- * $Source: CAN_message.h
- * $Revision: 5
+ * $Source: CAN_message.c
+ * $Revision: 7
  * $Author: Rafael Sanchez
- * $Date: 18/DIC/2017
+ * $Date: 18/Dic/2017
  */
 /*============================================================================*/
 /* DESCRIPTION :                                                              */
@@ -16,7 +16,7 @@
     detailed
     multiline
     description of the file
-*/
+ */
 /*============================================================================*/
 /* COPYRIGHT (C) CONTINENTAL AUTOMOTIVE 2014                                  */
 /* AUTOMOTIVE GROUP, Interior Division, Body and Security                     */
@@ -34,43 +34,86 @@
 /*============================================================================*/
 /*  Author           |        Version     |           DESCRIPTION             */
 /*----------------------------------------------------------------------------*/
-/*  Rafael Sanchez   |      1             |  Add Prototype for Hazard and turn*/
-/*  Rafael Sanchez   |      2             |  Create new variable to mgn sch	  */
-/*  Rafael Sanchez   |      3            |  Create mainLights              	  */
-/*  Rodrigo Mortera  |      4            |  Create Stop                       */
-/*  Rafael Sanchez   |      5            |  Complete function                 */
+/*  Rafael Sanchez   |      1             |  Create Hazard and turn functions*/
+/*  Rafael Sanchez   |      2             |  fix Scheduler					 				  */
+/*  Rafael Sanchez   |      3             |  Merge PWM, prioritize hazard			*/
+/*  Rafael Sanchez   |      4             |  Add mainLightsStruct							*/
+/*  Rodrigo Mortera  |      5             |  Add stopStruct                   */
+/*  Rodrigo Mortera  |      6             |  Add reverseStruct                */
+/*  Rafael Sanchez   |      7             |  Add Auto mainLights              */
 /*============================================================================*/
 /*                               OBJECT HISTORY                               */
 /*============================================================================*/
 /*
  *
- * SchM_Cfg.h
  *
  *  Created on: 15/11/2017
  *      Author: uid87753
  */
- /* ============================================================================*/
- #ifndef BSW_SERVICES_CAN_message_H_
- #define BSW_SERVICES_CAN_message_H_
+/* ============================================================================*/
 
 /* Includes */
-#include "Std_Types.h"
 #include "LEDS.h"
-#include "General.h"
-#include "ADC_Manager.h"
-#include "params.h"
-#include "structs.h"
 /*============================================================================*/
-/* Constants and types */
+/* Constants and types  */
 /*============================================================================*/
-/* Exported Variables */
-int hazardflag;
+/* Variables */
 /*============================================================================*/
-/* Exported functions prototypes */
-void CAN_message_void_MainLights();
-void CAN_message_void_TurnBehavior();
-void CAN_message_void_Stop();
-void CAN_message_void_Hazard();
-void CAN_message_void_Reverse();
+/* Private functions prototypes */
 /*============================================================================*/
-#endif /* BSW_SERVICES_SCHM_SCHM_CFG_H_ */
+/* Inline functions */
+/*============================================================================*/
+/* Private functions */
+
+void CAN_message_void_PWM_Hazard_FRONT(int percentage){
+	Control_ADC(percentage);
+	PWM_0(0);
+	PWM_0(1);
+}
+
+void CAN_message_void_PWM_Hazard_REAR(int percentage){
+	Control_ADC(percentage);
+	PWM_0(2);
+	PWM_0(4);
+}
+
+void CAN_message_void_PWM_Turn_Right_FRONT(int percentage){
+	Control_ADC(percentage);
+	PWM_0(0);
+}
+
+void CAN_message_void_PWM_Turn_Left_FRONT(int percentage){
+	Control_ADC(percentage);
+	PWM_0(1);
+}
+
+void CAN_message_void_PWM_Turn_Right_REAR(int percentage){
+	Control_ADC(percentage);
+	PWM_0(2);
+}
+
+void CAN_message_void_PWM_Turn_Left_REAR(int percentage){
+	Control_ADC(percentage);
+	PWM_0(4);
+}
+
+void CAN_message_void_PWM_Stop(int percentage){
+	Control_ADC(percentage);
+	PWM_0(5);
+}
+
+void CAN_message_void_PWM_Reverse(int percentage){
+	Control_ADC(percentage);
+	PWM_0(6);
+}
+
+void CAN_message_void_PWM_Heads(int percentage){
+	Control_ADC(percentage);
+	PWM_0(7);
+}
+
+/*============================================================================*/
+/* Exported functions */
+
+/*============================================================================*/
+/* Notice: the file ends with a blank new line to avoid compiler warnings */

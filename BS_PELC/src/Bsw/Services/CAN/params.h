@@ -50,27 +50,31 @@
  *      Author: uid87753
  */
  /* ============================================================================*/
- #ifndef BSW_SERVICES_CAN_message_H_
- #define BSW_SERVICES_CAN_message_H_
+ #ifndef BSW_SERVICES_CAN_CAN_PARAMS_H_
+ #define BSW_SERVICES_CAN_CAN_PARAMS_H_
 
 /* Includes */
 #include "Std_Types.h"
-#include "LEDS.h"
 #include "General.h"
-#include "ADC_Manager.h"
-#include "params.h"
 #include "structs.h"
+
 /*============================================================================*/
+
 /* Constants and types */
 /*============================================================================*/
+
 /* Exported Variables */
-int hazardflag;
+
+unsigned char params[3], params2[3], params3[3], params4[3], params5[3], params6[3];
 /*============================================================================*/
+
+
 /* Exported functions prototypes */
-void CAN_message_void_MainLights();
-void CAN_message_void_TurnBehavior();
-void CAN_message_void_Stop();
-void CAN_message_void_Hazard();
-void CAN_message_void_Reverse();
+void CAN_message_void_fillParams();
+void CAN_message_void_fillParams2();
+void CAN_message_void_fillParams3();
+void CAN_message_void_fillParams4();
+void CAN_message_void_fillParams5();
+void CAN_message_void_fillParams6();
 /*============================================================================*/
 #endif /* BSW_SERVICES_SCHM_SCHM_CFG_H_ */

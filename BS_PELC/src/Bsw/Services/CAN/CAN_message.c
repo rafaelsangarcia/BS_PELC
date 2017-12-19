@@ -69,71 +69,15 @@ int time_on, time_off, time_on_2, time_off_2, time_on_3, time_off_3 = 0;
 int percent_MAX, percent_MIN = 0;
 /*============================================================================*/
 /* Private functions prototypes */
-void CAN_message_void_fillParams();
-void CAN_message_void_fillParams2();
-void CAN_message_void_fillParams3();
-void CAN_message_void_fillParams4();
-void CAN_message_void_fillParams5();
-
 void CAN_message_void_Turn_Right();
 void CAN_message_void_Turn_Left();
 void CAN_message_void_Hazard_ON();
 void CAN_message_void_MainLights_Auto();
 
-void CAN_message_void_PWM_Hazard_FRONT(int);
-void CAN_message_void_PWM_Hazard_REAR(int);
-void CAN_message_void_PWM_Turn_Right_FRONT(int);
-void CAN_message_void_PWM_Turn_Right_REAR(int);
-void CAN_message_void_PWM_Turn_Left_FRONT(int);
-void CAN_message_void_PWM_Turn_Left_REAR(int);
-void CAN_message_void_PWM_Stop(int);
-void CAN_message_void_PWM_Heads(int);
-
 /*============================================================================*/
 /* Inline functions */
 /*============================================================================*/
 /* Private functions */
-void CAN_message_void_fillParams(){
-	ptr_struct= &rx_bytes;
-	for(i = 0; i < rx_bytes.byte1; i++){
-		params[i] = *(ptr_struct + 1 + i);
-	}
-}
-
-void CAN_message_void_fillParams2(){
-	ptr_struct= &hazardStruct;
-	for(i = 0; i < hazardStruct.byte1; i++){
-		params2[i] = *(ptr_struct + 1 + i);
-	}
-}
-
-void CAN_message_void_fillParams3(){
-	ptr_struct= &turnStruct;
-	for(i = 0; i < turnStruct.byte1; i++){
-		params3[i] = *(ptr_struct + 1 + i);
-	}
-}
-
-void CAN_message_void_fillParams4(){
-	ptr_struct= &mainLightsStruct;
-	for(i = 0; i < mainLightsStruct.byte1; i++){
-		params4[i] = *(ptr_struct + 1 + i);
-	}
-}
-
-void CAN_message_void_fillParams5(){
-	ptr_struct= &stopStruct;
-	for(i = 0; i < stopStruct.byte1; i++){
-		params5[i] = *(ptr_struct + 1 + i);
-	}
-}
-
-void CAN_message_void_fillParams6(){
-	ptr_struct= &reverseStruct;
-	for(i = 0; i < reverseStruct.byte1; i++){
-		params6[i] = *(ptr_struct + 1 + i);
-	}
-}
 
 void CAN_message_void_Hazard_ON(){
 	switch(mode){
@@ -264,153 +208,9 @@ void CAN_message_void_MainLights_Auto(){
 	Control_ADC_clean_flag();
 }
 
-
-void CAN_message_void_PWM_Hazard_FRONT(int percentage){
-	Control_ADC(percentage);
-	PWM_0(0);
-	PWM_0(1);
-}
-
-void CAN_message_void_PWM_Hazard_REAR(int percentage){
-	Control_ADC(percentage);
-	PWM_0(2);
-	PWM_0(4);
-}
-
-void CAN_message_void_PWM_Turn_Right_FRONT(int percentage){
-	Control_ADC(percentage);
-	PWM_0(0);
-}
-
-void CAN_message_void_PWM_Turn_Left_FRONT(int percentage){
-	Control_ADC(percentage);
-	PWM_0(1);
-}
-
-void CAN_message_void_PWM_Turn_Right_REAR(int percentage){
-	Control_ADC(percentage);
-	PWM_0(2);
-}
-
-void CAN_message_void_PWM_Turn_Left_REAR(int percentage){
-	Control_ADC(percentage);
-	PWM_0(4);
-}
-
-void CAN_message_void_PWM_Stop(int percentage){
-	Control_ADC(percentage);
-	PWM_0(5);
-}
-
-void CAN_message_void_PWM_Reverse(int percentage){
-	Control_ADC(percentage);
-	PWM_0(6);
-}
-
-void CAN_message_void_PWM_Heads(int percentage){
-	Control_ADC(percentage);
-	PWM_0(7);
-}
-
 /*============================================================================*/
 /* Exported functions */
 
-
-void CAN_message_void_fillStruct(){
-	ptr_rx = rx_msg_data;
-	ptr_rx = ptr_rx + 3;
-
-	ptr_struct = &rx_bytes;
-
-	for (i = 0 ; i < 8; i++){
-		if ( i == 4 ){
-			ptr_rx = ptr_rx + 8;
-		}
-		*ptr_struct = *ptr_rx;
-		ptr_struct++;
-		ptr_rx--;
-	}
-}
-
-void CAN_message_void_fill_MainLightsStruct(){
-	ptr_rx = rx_msg_data;
-	ptr_rx = ptr_rx + 3;
-
-	ptr_struct = &mainLightsStruct;
-
-	for (i = 0 ; i < 8; i++){
-		if ( i == 4 ){
-			ptr_rx = ptr_rx + 8;
-		}
-		*ptr_struct = *ptr_rx;
-		ptr_struct++;
-		ptr_rx--;
-	}
-}
-
-void CAN_message_void_fill_HazardStruct(){
-	ptr_rx = rx_msg_data;
-	ptr_rx = ptr_rx + 3;
-
-	ptr_struct = &hazardStruct;
-
-	for (i = 0 ; i < 8; i++){
-		if ( i == 4 ){
-			ptr_rx = ptr_rx + 8;
-		}
-		*ptr_struct = *ptr_rx;
-		ptr_struct++;
-		ptr_rx--;
-	}
-}
-
-void CAN_message_void_fill_TurnStruct(){
-	ptr_rx = rx_msg_data;
-	ptr_rx = ptr_rx + 3;
-
-	ptr_struct = &turnStruct;
-
-	for (i = 0 ; i < 8; i++){
-		if ( i == 4 ){
-			ptr_rx = ptr_rx + 8;
-		}
-		*ptr_struct = *ptr_rx;
-		ptr_struct++;
-		ptr_rx--;
-	}
-}
-
-void CAN_message_void_fill_StopStruct(){
-	ptr_rx = rx_msg_data;
-	ptr_rx = ptr_rx + 3;
-
-	ptr_struct = &stopStruct;
-
-	for (i = 0 ; i < 8; i++){
-		if ( i == 4 ){
-			ptr_rx = ptr_rx + 8;
-		}
-		*ptr_struct = *ptr_rx;
-		ptr_struct++;
-		ptr_rx--;
-	}
-}
-
-void CAN_message_void_fill_ReverseStruct(){
-	ptr_rx = rx_msg_data;
-	ptr_rx = ptr_rx + 3;
-
-	ptr_struct = &reverseStruct;
-
-	for (i = 0 ; i < 8; i++){
-		if ( i == 4 ){
-			ptr_rx = ptr_rx + 8;
-		}
-		*ptr_struct = *ptr_rx;
-		ptr_struct++;
-		ptr_rx--;
-	}
-}
 
 void CAN_message_void_TurnBehavior(){
 	//CAN_message_void_fillParams3();
