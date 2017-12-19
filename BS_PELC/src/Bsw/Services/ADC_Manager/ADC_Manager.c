@@ -27,6 +27,12 @@ void PWM_0 (int channel){
 		FTM0->CONTROLS[channel].CnV = dutyCycle;
 	}
 }
+
+void PWM_1 (int channel){
+	if (dutyCycle >= 0){
+		FTM1->CONTROLS[channel].CnV = dutyCycle;
+	}
+}
 /*
   FTM0->CONTROLS[0].CnV = i;
 			/*FTM0->CONTROLS[5].CnV = i;

@@ -135,6 +135,13 @@ void CAN_message_void_fillParams6(){
 	}
 }
 
+void CAN_message_void_fillParams7(){
+	ptr_struct= &thirdlightStruct;
+	for(i = 0; i < thirdlightStruct.byte1; i++){
+		params7[i] = *(ptr_struct + 1 + i);
+	}
+}
+
 void CAN_message_void_Hazard_ON(){
 	switch(mode){
 	case 0:
@@ -312,6 +319,11 @@ void CAN_message_void_PWM_Heads(int percentage){
 	PWM_0(7);
 }
 
+void CAN_message_void_PWM_ThirdLight(int percentage){
+	Control_ADC(percentage);
+	PWM_1(0);
+}
+
 /*============================================================================*/
 /* Exported functions */
 
@@ -412,6 +424,21 @@ void CAN_message_void_fill_ReverseStruct(){
 	}
 }
 
+void CAN_message_void_fill_ThirdLightStruct(){
+	ptr_rx = rx_msg_data;
+	ptr_rx = ptr_rx + 3;
+
+	ptr_struct = &thirdlightStruct;
+
+	for (i = 0 ; i < 8; i++){
+		if ( i == 4 ){
+			ptr_rx = ptr_rx + 8;
+		}
+		*ptr_struct = *ptr_rx;
+		ptr_struct++;
+		ptr_rx--;
+	}
+}
 void CAN_message_void_TurnBehavior(){
 	//CAN_message_void_fillParams3();
 	time_on_3 = params3[1] * 6;
@@ -461,10 +488,12 @@ void CAN_message_void_Stop(){
 	switch (params5[0]) {
 	case 0x00:
 		CAN_message_void_PWM_Stop(percent_MIN);
+		CAN_message_void_PWM_ThirdLight(0);
 		break;
 
 	case 0x0F:
 		CAN_message_void_PWM_Stop(100);
+		CAN_message_void_PWM_ThirdLight(100);
 		break;
 
 	}
@@ -482,6 +511,8 @@ void CAN_message_void_Reverse(){
 
 	}
 }
+
+
 
 void CAN_message_void_MainLights(){
 	switch (params4[0]) {
