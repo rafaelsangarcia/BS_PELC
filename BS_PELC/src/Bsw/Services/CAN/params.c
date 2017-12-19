@@ -4,10 +4,10 @@
 /*                        OBJECT SPECIFICATION                                */
 /*============================================================================*/
 /*!
- * $Source: CAN_message.c
- * $Revision: 7
+ * $Source: params.c
+ * $Revision: 8
  * $Author: Rafael Sanchez
- * $Date: 18/Dic/2017
+ * $Date: 19/Dic/2017
  */
 /*============================================================================*/
 /* DESCRIPTION :                                                              */
@@ -41,6 +41,7 @@
 /*  Rodrigo Mortera  |      5             |  Add stopStruct                   */
 /*  Rodrigo Mortera  |      6             |  Add reverseStruct                */
 /*  Rafael Sanchez   |      7             |  Add Auto mainLights              */
+/*  Rafael Sanchez   |      8             |  Split functions		              */
 /*============================================================================*/
 /*                               OBJECT HISTORY                               */
 /*============================================================================*/
@@ -70,42 +71,42 @@
 
 /*============================================================================*/
 /* Exported functions */
-void CAN_message_void_fillParams(){
+void CAN_params_void_fillParams(){
 	ptr_struct= &rx_bytes;
 	for(i = 0; i < rx_bytes.byte1; i++){
 		params[i] = *(ptr_struct + 1 + i);
 	}
 }
 
-void CAN_message_void_fillParams2(){
+void CAN_params_void_fillParams2(){
 	ptr_struct= &hazardStruct;
 	for(i = 0; i < hazardStruct.byte1; i++){
 		params2[i] = *(ptr_struct + 1 + i);
 	}
 }
 
-void CAN_message_void_fillParams3(){
+void CAN_params_void_fillParams3(){
 	ptr_struct= &turnStruct;
 	for(i = 0; i < turnStruct.byte1; i++){
 		params3[i] = *(ptr_struct + 1 + i);
 	}
 }
 
-void CAN_message_void_fillParams4(){
+void CAN_params_void_fillParams4(){
 	ptr_struct= &mainLightsStruct;
 	for(i = 0; i < mainLightsStruct.byte1; i++){
 		params4[i] = *(ptr_struct + 1 + i);
 	}
 }
 
-void CAN_message_void_fillParams5(){
+void CAN_params_void_fillParams5(){
 	ptr_struct= &stopStruct;
 	for(i = 0; i < stopStruct.byte1; i++){
 		params5[i] = *(ptr_struct + 1 + i);
 	}
 }
 
-void CAN_message_void_fillParams6(){
+void CAN_params_void_fillParams6(){
 	ptr_struct= &reverseStruct;
 	for(i = 0; i < reverseStruct.byte1; i++){
 		params6[i] = *(ptr_struct + 1 + i);

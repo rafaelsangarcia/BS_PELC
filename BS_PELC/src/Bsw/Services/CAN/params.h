@@ -4,10 +4,10 @@
 /*                        OBJECT SPECIFICATION                                */
 /*============================================================================*/
 /*!
- * $Source: CAN_message.h
- * $Revision: 5
+ * $Source: params.h
+ * $Revision: 6
  * $Author: Rafael Sanchez
- * $Date: 18/DIC/2017
+ * $Date: 19/DIC/2017
  */
 /*============================================================================*/
 /* DESCRIPTION :                                                              */
@@ -39,6 +39,7 @@
 /*  Rafael Sanchez   |      3            |  Create mainLights              	  */
 /*  Rodrigo Mortera  |      4            |  Create Stop                       */
 /*  Rafael Sanchez   |      5            |  Complete function                 */
+/*  Rafael Sanchez   |      6             |  Split functions		              */
 /*============================================================================*/
 /*                               OBJECT HISTORY                               */
 /*============================================================================*/
@@ -50,8 +51,8 @@
  *      Author: uid87753
  */
  /* ============================================================================*/
- #ifndef BSW_SERVICES_CAN_CAN_PARAMS_H_
- #define BSW_SERVICES_CAN_CAN_PARAMS_H_
+ #ifndef BSW_SERVICES_CAN_PARAMS_H_
+ #define BSW_SERVICES_CAN_PARAMS_H_
 
 /* Includes */
 #include "Std_Types.h"
@@ -70,11 +71,11 @@ unsigned char params[3], params2[3], params3[3], params4[3], params5[3], params6
 
 
 /* Exported functions prototypes */
-void CAN_message_void_fillParams();
-void CAN_message_void_fillParams2();
-void CAN_message_void_fillParams3();
-void CAN_message_void_fillParams4();
-void CAN_message_void_fillParams5();
-void CAN_message_void_fillParams6();
+void CAN_params_void_fillParams();
+void CAN_params_void_fillParams2();
+void CAN_params_void_fillParams3();
+void CAN_params_void_fillParams4();
+void CAN_params_void_fillParams5();
+void CAN_params_void_fillParams6();
 /*============================================================================*/
 #endif /* BSW_SERVICES_SCHM_SCHM_CFG_H_ */

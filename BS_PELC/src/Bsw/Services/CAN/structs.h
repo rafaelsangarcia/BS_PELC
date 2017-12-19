@@ -4,10 +4,10 @@
 /*                        OBJECT SPECIFICATION                                */
 /*============================================================================*/
 /*!
- * $Source: CAN_message.h
- * $Revision: 5
+ * $Source: structs.h
+ * $Revision: 6
  * $Author: Rafael Sanchez
- * $Date: 18/DIC/2017
+ * $Date: 19/DIC/2017
  */
 /*============================================================================*/
 /* DESCRIPTION :                                                              */
@@ -39,6 +39,7 @@
 /*  Rafael Sanchez   |      3            |  Create mainLights              	  */
 /*  Rodrigo Mortera  |      4            |  Create Stop                       */
 /*  Rafael Sanchez   |      5            |  Complete function                 */
+/*  Rafael Sanchez   |      6             |  Split functions		              */
 /*============================================================================*/
 /*                               OBJECT HISTORY                               */
 /*============================================================================*/
@@ -50,8 +51,8 @@
  *      Author: uid87753
  */
  /* ============================================================================*/
- #ifndef BSW_SERVICES_CAN_CAN_STRUCTS_H_
- #define BSW_SERVICES_CAN_CAN_STRUCTS_H_
+ #ifndef BSW_SERVICES_CAN_STRUCTS_H_
+ #define BSW_SERVICES_CAN_STRUCTS_H_
 
 /* Includes */
 #include "Std_Types.h"
@@ -98,12 +99,12 @@ bytes_struct rx_bytes, hazardStruct, listenStruct, mainLightsStruct, turnStruct,
 /*============================================================================*/
 
 /* Exported functions prototypes */
-void CAN_message_void_fillStruct();
-void CAN_message_void_fill_ListenStruct();
-void CAN_message_void_fill_MainLightsStruct();
-void CAN_message_void_fill_HazardStruct();
-void CAN_message_void_fill_TurnStruct();
-void CAN_message_void_fill_StopStruct();
-void CAN_message_void_fill_ReverseStruct();
+void CAN_structs_void_fillStruct();
+void CAN_structs_void_fill_ListenStruct();
+void CAN_structs_void_fill_MainLightsStruct();
+void CAN_structs_void_fill_HazardStruct();
+void CAN_structs_void_fill_TurnStruct();
+void CAN_structs_void_fill_StopStruct();
+void CAN_structs_void_fill_ReverseStruct();
 /*============================================================================*/
 #endif /* BSW_SERVICES_SCHM_SCHM_CFG_H_ */

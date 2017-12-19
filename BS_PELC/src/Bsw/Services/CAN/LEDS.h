@@ -4,10 +4,10 @@
 /*                        OBJECT SPECIFICATION                                */
 /*============================================================================*/
 /*!
- * $Source: CAN_message.h
- * $Revision: 5
+ * $Source: LEDS.h
+ * $Revision: 6
  * $Author: Rafael Sanchez
- * $Date: 18/DIC/2017
+ * $Date: 19/DIC/2017
  */
 /*============================================================================*/
 /* DESCRIPTION :                                                              */
@@ -39,6 +39,7 @@
 /*  Rafael Sanchez   |      3            |  Create mainLights              	  */
 /*  Rodrigo Mortera  |      4            |  Create Stop                       */
 /*  Rafael Sanchez   |      5            |  Complete function                 */
+/*  Rafael Sanchez   |      6             |  Split functions		              */
 /*============================================================================*/
 /*                               OBJECT HISTORY                               */
 /*============================================================================*/
@@ -50,8 +51,8 @@
  *      Author: uid87753
  */
  /* ============================================================================*/
- #ifndef BSW_SERVICES_CAN_CAN_LEDS_H_
- #define BSW_SERVICES_CAN_CAN_LEDS_H_
+ #ifndef BSW_SERVICES_CAN_LEDS_H_
+ #define BSW_SERVICES_CAN_LEDS_H_
 
 /* Includes */
 #include "Std_Types.h"
@@ -65,13 +66,14 @@
 
 /*============================================================================*/
 /* Exported functions prototypes */
-void CAN_message_void_PWM_Hazard_FRONT(int);
-void CAN_message_void_PWM_Hazard_REAR(int);
-void CAN_message_void_PWM_Turn_Right_FRONT(int);
-void CAN_message_void_PWM_Turn_Right_REAR(int);
-void CAN_message_void_PWM_Turn_Left_FRONT(int);
-void CAN_message_void_PWM_Turn_Left_REAR(int);
-void CAN_message_void_PWM_Stop(int);
-void CAN_message_void_PWM_Heads(int);
+void CAN_LEDS_void_PWM_Hazard_FRONT(int);
+void CAN_LEDS_void_PWM_Hazard_REAR(int);
+void CAN_LEDS_void_PWM_Turn_Right_FRONT(int);
+void CAN_LEDS_void_PWM_Turn_Right_REAR(int);
+void CAN_LEDS_void_PWM_Turn_Left_FRONT(int);
+void CAN_LEDS_void_PWM_Turn_Left_REAR(int);
+void CAN_LEDS_void_PWM_Stop(int);
+void CAN_LEDS_void_PWM_Reverse(int);
+void CAN_LEDS_void_PWM_Heads(int);
 /*============================================================================*/
 #endif /* BSW_SERVICES_SCHM_SCHM_CFG_H_ */

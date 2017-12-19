@@ -4,10 +4,10 @@
 /*                        OBJECT SPECIFICATION                                */
 /*============================================================================*/
 /*!
- * $Source: CAN_message.c
- * $Revision: 7
+ * $Source: structs.c
+ * $Revision: 8
  * $Author: Rafael Sanchez
- * $Date: 18/Dic/2017
+ * $Date: 19/Dic/2017
  */
 /*============================================================================*/
 /* DESCRIPTION :                                                              */
@@ -41,6 +41,7 @@
 /*  Rodrigo Mortera  |      5             |  Add stopStruct                   */
 /*  Rodrigo Mortera  |      6             |  Add reverseStruct                */
 /*  Rafael Sanchez   |      7             |  Add Auto mainLights              */
+/*  Rafael Sanchez   |      8             |  Split functions		              */
 /*============================================================================*/
 /*                               OBJECT HISTORY                               */
 /*============================================================================*/
@@ -69,7 +70,7 @@
 /*============================================================================*/
 /* Exported functions */
 
-void CAN_message_void_fillStruct(){
+void CAN_structs_void_fillStruct(){
 	ptr_rx = rx_msg_data;
 	ptr_rx = ptr_rx + 3;
 
@@ -85,7 +86,7 @@ void CAN_message_void_fillStruct(){
 	}
 }
 
-void CAN_message_void_fill_MainLightsStruct(){
+void CAN_structs_void_fill_MainLightsStruct(){
 	ptr_rx = rx_msg_data;
 	ptr_rx = ptr_rx + 3;
 
@@ -101,7 +102,7 @@ void CAN_message_void_fill_MainLightsStruct(){
 	}
 }
 
-void CAN_message_void_fill_HazardStruct(){
+void CAN_structs_void_fill_HazardStruct(){
 	ptr_rx = rx_msg_data;
 	ptr_rx = ptr_rx + 3;
 
@@ -117,7 +118,7 @@ void CAN_message_void_fill_HazardStruct(){
 	}
 }
 
-void CAN_message_void_fill_TurnStruct(){
+void CAN_structs_void_fill_TurnStruct(){
 	ptr_rx = rx_msg_data;
 	ptr_rx = ptr_rx + 3;
 
@@ -133,7 +134,7 @@ void CAN_message_void_fill_TurnStruct(){
 	}
 }
 
-void CAN_message_void_fill_StopStruct(){
+void CAN_structs_void_fill_StopStruct(){
 	ptr_rx = rx_msg_data;
 	ptr_rx = ptr_rx + 3;
 
@@ -149,7 +150,7 @@ void CAN_message_void_fill_StopStruct(){
 	}
 }
 
-void CAN_message_void_fill_ReverseStruct(){
+void CAN_structs_void_fill_ReverseStruct(){
 	ptr_rx = rx_msg_data;
 	ptr_rx = ptr_rx + 3;
 

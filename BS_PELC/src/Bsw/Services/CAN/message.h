@@ -4,10 +4,10 @@
 /*                        OBJECT SPECIFICATION                                */
 /*============================================================================*/
 /*!
- * $Source: CAN_message.h
- * $Revision: 5
+ * $Source: message.h
+ * $Revision: 6
  * $Author: Rafael Sanchez
- * $Date: 18/DIC/2017
+ * $Date: 19/DIC/2017
  */
 /*============================================================================*/
 /* DESCRIPTION :                                                              */
@@ -39,6 +39,7 @@
 /*  Rafael Sanchez   |      3            |  Create mainLights              	  */
 /*  Rodrigo Mortera  |      4            |  Create Stop                       */
 /*  Rafael Sanchez   |      5            |  Complete function                 */
+/*  Rafael Sanchez   |      6             |  Split functions		              */
 /*============================================================================*/
 /*                               OBJECT HISTORY                               */
 /*============================================================================*/
@@ -50,14 +51,14 @@
  *      Author: uid87753
  */
  /* ============================================================================*/
- #ifndef BSW_SERVICES_CAN_message_H_
- #define BSW_SERVICES_CAN_message_H_
+ #ifndef BSW_SERVICES_message_H_
+ #define BSW_SERVICES_message_H_
 
 /* Includes */
 #include "Std_Types.h"
-#include "LEDS.h"
 #include "General.h"
 #include "ADC_Manager.h"
+#include "LEDS.h"
 #include "params.h"
 #include "structs.h"
 /*============================================================================*/

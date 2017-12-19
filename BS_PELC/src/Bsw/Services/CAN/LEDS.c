@@ -4,10 +4,10 @@
 /*                        OBJECT SPECIFICATION                                */
 /*============================================================================*/
 /*!
- * $Source: CAN_message.c
- * $Revision: 7
+ * $Source: LEDS.c
+ * $Revision: 8
  * $Author: Rafael Sanchez
- * $Date: 18/Dic/2017
+ * $Date: 19/Dic/2017
  */
 /*============================================================================*/
 /* DESCRIPTION :                                                              */
@@ -41,6 +41,7 @@
 /*  Rodrigo Mortera  |      5             |  Add stopStruct                   */
 /*  Rodrigo Mortera  |      6             |  Add reverseStruct                */
 /*  Rafael Sanchez   |      7             |  Add Auto mainLights              */
+/*  Rafael Sanchez   |      8             |  Split functions		              */
 /*============================================================================*/
 /*                               OBJECT HISTORY                               */
 /*============================================================================*/
@@ -65,49 +66,49 @@
 /*============================================================================*/
 /* Private functions */
 
-void CAN_message_void_PWM_Hazard_FRONT(int percentage){
+void CAN_LEDS_void_PWM_Hazard_FRONT(int percentage){
 	Control_ADC(percentage);
 	PWM_0(0);
 	PWM_0(1);
 }
 
-void CAN_message_void_PWM_Hazard_REAR(int percentage){
+void CAN_LEDS_void_PWM_Hazard_REAR(int percentage){
 	Control_ADC(percentage);
 	PWM_0(2);
 	PWM_0(4);
 }
 
-void CAN_message_void_PWM_Turn_Right_FRONT(int percentage){
+void CAN_LEDS_void_PWM_Turn_Right_FRONT(int percentage){
 	Control_ADC(percentage);
 	PWM_0(0);
 }
 
-void CAN_message_void_PWM_Turn_Left_FRONT(int percentage){
+void CAN_LEDS_void_PWM_Turn_Left_FRONT(int percentage){
 	Control_ADC(percentage);
 	PWM_0(1);
 }
 
-void CAN_message_void_PWM_Turn_Right_REAR(int percentage){
+void CAN_LEDS_void_PWM_Turn_Right_REAR(int percentage){
 	Control_ADC(percentage);
 	PWM_0(2);
 }
 
-void CAN_message_void_PWM_Turn_Left_REAR(int percentage){
+void CAN_LEDS_void_PWM_Turn_Left_REAR(int percentage){
 	Control_ADC(percentage);
 	PWM_0(4);
 }
 
-void CAN_message_void_PWM_Stop(int percentage){
+void CAN_LEDS_void_PWM_Stop(int percentage){
 	Control_ADC(percentage);
 	PWM_0(5);
 }
 
-void CAN_message_void_PWM_Reverse(int percentage){
+void CAN_LEDS_void_PWM_Reverse(int percentage){
 	Control_ADC(percentage);
 	PWM_0(6);
 }
 
-void CAN_message_void_PWM_Heads(int percentage){
+void CAN_LEDS_void_PWM_Heads(int percentage){
 	Control_ADC(percentage);
 	PWM_0(7);
 }
