@@ -5,9 +5,9 @@
 /*============================================================================*/
 /*!
  * $Source: CAN_message.h
- * $Revision: 5
- * $Author: Rafael Sanchez
- * $Date: 18/DIC/2017
+ * $Revision: 6
+ * $Author: Rodrigo Mortera
+ * $Date: 19/DIC/2017
  */
 /*============================================================================*/
 /* DESCRIPTION :                                                              */
@@ -39,6 +39,7 @@
 /*  Rafael Sanchez   |      3            |  Create mainLights              	  */
 /*  Rodrigo Mortera  |      4            |  Create Stop                       */
 /*  Rafael Sanchez   |      5            |  Complete function                 */
+/*  Rodrigo Mortera  |      6            |  Add third light prototype functions*/
 /*============================================================================*/
 /*                               OBJECT HISTORY                               */
 /*============================================================================*/

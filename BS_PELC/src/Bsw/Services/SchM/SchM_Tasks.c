@@ -5,9 +5,9 @@
 /*============================================================================*/
 /*!
  ** $Source: SchM_Tasks.c $
- * $Revision: version 9 $
+ * $Revision: version 10 $
  * $Author: Rodrigo Mortera $
- * $Date: 18/Dic/2017 $
+ * $Date: 19/Dic/2017 $
  */
 /*============================================================================*/
 /* DESCRIPTION :                                                              */
@@ -43,6 +43,7 @@
 /*  Rafael Sanchez   |      7             |  Updates Task and add mainlight			*/
 /*  Rodrigo Mortera  |      8             |  Add Stop command                 */
 /*  Rodrigo Mortera  |      9             |  Add reverse command              */
+/* Rodrigo Mortera   |      10            |  Add third light stop             */
 /*============================================================================*/
 /*                               OBJECT HISTORY                               */
 /*============================================================================*/
@@ -127,7 +128,9 @@ void SchM_LISTEN_Task ( void ){
 		tx_msg_data[0]=rx_msg_data[0];
 		tx_msg_data[1]=rx_msg_data[1];
 		CAN_message_void_fill_StopStruct();
+		CAN_message_void_fill_ThirdLightStruct();
 		CAN_message_void_fillParams5();
+		CAN_message_void_fillParams7();
 		FLEXCAN0_transmit_msg (18,0x04100000,tx_msg_data);
 	}
 }

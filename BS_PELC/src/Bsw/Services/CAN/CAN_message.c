@@ -5,9 +5,9 @@
 /*============================================================================*/
 /*!
  * $Source: CAN_message.c
- * $Revision: 7
- * $Author: Rafael Sanchez
- * $Date: 18/Dic/2017
+ * $Revision: 8
+ * $Author: Rodrigo Mortera
+ * $Date: 19/Dic/2017
  */
 /*============================================================================*/
 /* DESCRIPTION :                                                              */
@@ -41,6 +41,7 @@
 /*  Rodrigo Mortera  |      5             |  Add stopStruct                   */
 /*  Rodrigo Mortera  |      6             |  Add reverseStruct                */
 /*  Rafael Sanchez   |      7             |  Add Auto mainLights              */
+/*  Rodrigo Mortera  |      8             |  Add third light stop             */
 /*============================================================================*/
 /*                               OBJECT HISTORY                               */
 /*============================================================================*/
@@ -502,7 +503,7 @@ void CAN_message_void_Stop(){
 void CAN_message_void_Reverse(){
 	switch (params6[0]) {
 	case 0x00:
-		CAN_message_void_PWM_Reverse(percent_MIN);
+		CAN_message_void_PWM_Reverse(0);
 		break;
 
 	case 0x0F:
