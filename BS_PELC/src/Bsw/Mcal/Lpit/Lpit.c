@@ -20,7 +20,7 @@ void LPIT0_init ( tCallbackFunction Pit0Callback ) {
                            /* M_CEN=1: enable module clk (allows writing other LPIT0 regs)*/
   LPIT0->MIER = 0x00000001;   /* TIE0=1: Timer Interrupt Enabled fot Chan 0 */
   //LPIT0->TMR[0].TVAL = 31250;    /* Chan 0 Timeout period: 31250 ticks */
-  LPIT0->TMR[0].TVAL = 20000;    /* Chan 0 Timeout period: 31250 ticks */
+  LPIT0->TMR[0].TVAL = 50000;    /* Chan 0 Timeout period: 31250 ticks */
   //LPIT0->TMR[0].TVAL = 100000;
 
   GlbPit0Callback = Pit0Callback;        /* Callback Initialization */
