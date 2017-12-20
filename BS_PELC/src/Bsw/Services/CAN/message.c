@@ -212,7 +212,6 @@ void CAN_message_void_MainLights_Auto(){
 /*============================================================================*/
 /* Exported functions */
 
-
 void CAN_message_void_TurnBehavior(){
 	//CAN_message_void_fillParams3();
 	time_on_3 = params3[1] * 6;
@@ -283,8 +282,6 @@ void CAN_message_void_Reverse(){
 
 	}
 }
-
-
 
 void CAN_message_void_MainLights(){
 	switch (params4[0]) {
