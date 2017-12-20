@@ -64,7 +64,7 @@ int i = 0;
 unsigned char mode = 0, mode_2=0;
 int cont_1, cont_2, cont_3 = 0;
 
-int dayLight=0;
+unsigned char dayLight=0;
 
 int time_on, time_off, time_on_2, time_off_2, time_on_3, time_off_3 = 0;
 int percent_MAX, percent_MIN = 0;
