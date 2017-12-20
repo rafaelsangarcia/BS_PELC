@@ -4,9 +4,9 @@
 /*                        OBJECT SPECIFICATION                                */
 /*============================================================================*/
 /*!
- * $Source: CAN_message.c
+ * $Source: message.c
  * $Revision: 8
- * $Author: Rodrigo Mortera
+ * $Author: Rafael Sanchez
  * $Date: 19/Dic/2017
  */
 /*============================================================================*/
@@ -41,7 +41,7 @@
 /*  Rodrigo Mortera  |      5             |  Add stopStruct                   */
 /*  Rodrigo Mortera  |      6             |  Add reverseStruct                */
 /*  Rafael Sanchez   |      7             |  Add Auto mainLights              */
-/*  Rodrigo Mortera  |      8             |  Add third light stop             */
+/*  Rafael Sanchez   |      8             |  Split functions		              */
 /*============================================================================*/
 /*                               OBJECT HISTORY                               */
 /*============================================================================*/
@@ -54,7 +54,7 @@
 /* ============================================================================*/
 
 /* Includes */
-#include "CAN_message.h"
+#include "message.h"
 #include "ADC_Manager.h"
 /*============================================================================*/
 /* Constants and types  */
@@ -70,84 +70,21 @@ int time_on, time_off, time_on_2, time_off_2, time_on_3, time_off_3 = 0;
 int percent_MAX, percent_MIN = 0;
 /*============================================================================*/
 /* Private functions prototypes */
-void CAN_message_void_fillParams();
-void CAN_message_void_fillParams2();
-void CAN_message_void_fillParams3();
-void CAN_message_void_fillParams4();
-void CAN_message_void_fillParams5();
-
 void CAN_message_void_Turn_Right();
 void CAN_message_void_Turn_Left();
 void CAN_message_void_Hazard_ON();
 void CAN_message_void_MainLights_Auto();
 
-void CAN_message_void_PWM_Hazard_FRONT(int);
-void CAN_message_void_PWM_Hazard_REAR(int);
-void CAN_message_void_PWM_Turn_Right_FRONT(int);
-void CAN_message_void_PWM_Turn_Right_REAR(int);
-void CAN_message_void_PWM_Turn_Left_FRONT(int);
-void CAN_message_void_PWM_Turn_Left_REAR(int);
-void CAN_message_void_PWM_Stop(int);
-void CAN_message_void_PWM_Heads(int);
-
 /*============================================================================*/
 /* Inline functions */
 /*============================================================================*/
 /* Private functions */
-void CAN_message_void_fillParams(){
-	ptr_struct= &rx_bytes;
-	for(i = 0; i < rx_bytes.byte1; i++){
-		params[i] = *(ptr_struct + 1 + i);
-	}
-}
-
-void CAN_message_void_fillParams2(){
-	ptr_struct= &hazardStruct;
-	for(i = 0; i < hazardStruct.byte1; i++){
-		params2[i] = *(ptr_struct + 1 + i);
-	}
-}
-
-void CAN_message_void_fillParams3(){
-	ptr_struct= &turnStruct;
-	for(i = 0; i < turnStruct.byte1; i++){
-		params3[i] = *(ptr_struct + 1 + i);
-	}
-}
-
-void CAN_message_void_fillParams4(){
-	ptr_struct= &mainLightsStruct;
-	for(i = 0; i < mainLightsStruct.byte1; i++){
-		params4[i] = *(ptr_struct + 1 + i);
-	}
-}
-
-void CAN_message_void_fillParams5(){
-	ptr_struct= &stopStruct;
-	for(i = 0; i < stopStruct.byte1; i++){
-		params5[i] = *(ptr_struct + 1 + i);
-	}
-}
-
-void CAN_message_void_fillParams6(){
-	ptr_struct= &reverseStruct;
-	for(i = 0; i < reverseStruct.byte1; i++){
-		params6[i] = *(ptr_struct + 1 + i);
-	}
-}
-
-void CAN_message_void_fillParams7(){
-	ptr_struct= &thirdlightStruct;
-	for(i = 0; i < thirdlightStruct.byte1; i++){
-		params7[i] = *(ptr_struct + 1 + i);
-	}
-}
 
 void CAN_message_void_Hazard_ON(){
 	switch(mode){
 	case 0:
-		CAN_message_void_PWM_Hazard_FRONT(percent_MIN);
-		CAN_message_void_PWM_Hazard_REAR(0);
+		CAN_LEDS_void_PWM_Hazard_FRONT(percent_MIN);
+		CAN_LEDS_void_PWM_Hazard_REAR(0);
 		cont_2++;
 		if(cont_2 >= time_on_2){
 			mode = 1;
@@ -159,8 +96,8 @@ void CAN_message_void_Hazard_ON(){
 		break;
 
 	case 1:
-		CAN_message_void_PWM_Hazard_FRONT(100);
-		CAN_message_void_PWM_Hazard_REAR(100);
+		CAN_LEDS_void_PWM_Hazard_FRONT(100);
+		CAN_LEDS_void_PWM_Hazard_REAR(100);
 		cont_2++;
 		if(cont_2 >= time_off_2){
 			mode = 0;
@@ -177,8 +114,8 @@ void CAN_message_void_Turn_Right(){
 	switch(mode_2){
 	case 0:
 		//PTB->PCOR |= 1<<LedBar_3;
-		CAN_message_void_PWM_Turn_Right_FRONT(percent_MIN);
-		CAN_message_void_PWM_Turn_Right_REAR(0);
+		CAN_LEDS_void_PWM_Turn_Right_FRONT(percent_MIN);
+		CAN_LEDS_void_PWM_Turn_Right_REAR(0);
 		cont_3++;
 		if(cont_3 >= time_on_3){
 			mode_2 = 1;
@@ -190,8 +127,8 @@ void CAN_message_void_Turn_Right(){
 		break;
 
 	case 1:
-		CAN_message_void_PWM_Turn_Right_FRONT(100);
-		CAN_message_void_PWM_Turn_Right_REAR(100);
+		CAN_LEDS_void_PWM_Turn_Right_FRONT(100);
+		CAN_LEDS_void_PWM_Turn_Right_REAR(100);
 		cont_3++;
 		if(cont_3 >= time_off_3){
 			mode_2 = 0;
@@ -207,8 +144,8 @@ void CAN_message_void_Turn_Right(){
 void CAN_message_void_Turn_Left(){
 	switch(mode_2){
 	case 0:
-		CAN_message_void_PWM_Turn_Left_FRONT(percent_MIN);
-		CAN_message_void_PWM_Turn_Left_REAR(0);
+		CAN_LEDS_void_PWM_Turn_Left_FRONT(percent_MIN);
+		CAN_LEDS_void_PWM_Turn_Left_REAR(0);
 		cont_3++;
 		if(cont_3 >= time_on_3){
 			mode_2 = 1;
@@ -220,8 +157,8 @@ void CAN_message_void_Turn_Left(){
 		break;
 
 	case 1:
-		CAN_message_void_PWM_Turn_Left_FRONT(100);
-		CAN_message_void_PWM_Turn_Left_REAR(100);
+		CAN_LEDS_void_PWM_Turn_Left_FRONT(100);
+		CAN_LEDS_void_PWM_Turn_Left_REAR(100);
 		cont_3++;
 		if(cont_3 >= time_off_3){
 			mode_2 = 0;
@@ -239,7 +176,7 @@ void CAN_message_void_MainLights_Auto(){
 
 	case 0: /*DAY*/
 		percent_MIN = 0;
-		CAN_message_void_PWM_Heads(0);
+		CAN_LEDS_void_PWM_Heads(0);
 		if(Sensor() <= 60 && Sensor() > 15){
 			dayLight = 1;
 		}
@@ -247,7 +184,7 @@ void CAN_message_void_MainLights_Auto(){
 
 	case 1: /*afternoon*/
 		percent_MIN = 5;
-		CAN_message_void_PWM_Heads(0);
+		CAN_LEDS_void_PWM_Heads(0);
 		if(Sensor() <= 15){
 			dayLight = 2;
 		}
@@ -255,7 +192,7 @@ void CAN_message_void_MainLights_Auto(){
 
 	case 2: /*Night*/
 		percent_MIN = 5;
-		CAN_message_void_PWM_Heads(100);
+		CAN_LEDS_void_PWM_Heads(100);
 		if(Sensor() >= 65){
 			dayLight = 3;
 		}
@@ -263,7 +200,7 @@ void CAN_message_void_MainLights_Auto(){
 
 	case 3: /*Morning*/
 		percent_MIN = 5;
-		CAN_message_void_PWM_Heads(0);
+		CAN_LEDS_void_PWM_Heads(0);
 		if(Sensor() >= 80){
 			dayLight = 0;
 		}
@@ -272,184 +209,20 @@ void CAN_message_void_MainLights_Auto(){
 	Control_ADC_clean_flag();
 }
 
-
-void CAN_message_void_PWM_Hazard_FRONT(int percentage){
-	Control_ADC(percentage);
-	PWM_0(0);
-	PWM_0(1);
-}
-
-void CAN_message_void_PWM_Hazard_REAR(int percentage){
-	Control_ADC(percentage);
-	PWM_0(2);
-	PWM_0(4);
-}
-
-void CAN_message_void_PWM_Turn_Right_FRONT(int percentage){
-	Control_ADC(percentage);
-	PWM_0(0);
-}
-
-void CAN_message_void_PWM_Turn_Left_FRONT(int percentage){
-	Control_ADC(percentage);
-	PWM_0(1);
-}
-
-void CAN_message_void_PWM_Turn_Right_REAR(int percentage){
-	Control_ADC(percentage);
-	PWM_0(2);
-}
-
-void CAN_message_void_PWM_Turn_Left_REAR(int percentage){
-	Control_ADC(percentage);
-	PWM_0(4);
-}
-
-void CAN_message_void_PWM_Stop(int percentage){
-	Control_ADC(percentage);
-	PWM_0(5);
-}
-
-void CAN_message_void_PWM_Reverse(int percentage){
-	Control_ADC(percentage);
-	PWM_0(6);
-}
-
-void CAN_message_void_PWM_Heads(int percentage){
-	Control_ADC(percentage);
-	PWM_0(7);
-}
-
-void CAN_message_void_PWM_ThirdLight(int percentage){
-	Control_ADC(percentage);
-	PWM_1(0);
-}
-
 /*============================================================================*/
 /* Exported functions */
 
 
-void CAN_message_void_fillStruct(){
-	ptr_rx = rx_msg_data;
-	ptr_rx = ptr_rx + 3;
-
-	ptr_struct = &rx_bytes;
-
-	for (i = 0 ; i < 8; i++){
-		if ( i == 4 ){
-			ptr_rx = ptr_rx + 8;
-		}
-		*ptr_struct = *ptr_rx;
-		ptr_struct++;
-		ptr_rx--;
-	}
-}
-
-void CAN_message_void_fill_MainLightsStruct(){
-	ptr_rx = rx_msg_data;
-	ptr_rx = ptr_rx + 3;
-
-	ptr_struct = &mainLightsStruct;
-
-	for (i = 0 ; i < 8; i++){
-		if ( i == 4 ){
-			ptr_rx = ptr_rx + 8;
-		}
-		*ptr_struct = *ptr_rx;
-		ptr_struct++;
-		ptr_rx--;
-	}
-}
-
-void CAN_message_void_fill_HazardStruct(){
-	ptr_rx = rx_msg_data;
-	ptr_rx = ptr_rx + 3;
-
-	ptr_struct = &hazardStruct;
-
-	for (i = 0 ; i < 8; i++){
-		if ( i == 4 ){
-			ptr_rx = ptr_rx + 8;
-		}
-		*ptr_struct = *ptr_rx;
-		ptr_struct++;
-		ptr_rx--;
-	}
-}
-
-void CAN_message_void_fill_TurnStruct(){
-	ptr_rx = rx_msg_data;
-	ptr_rx = ptr_rx + 3;
-
-	ptr_struct = &turnStruct;
-
-	for (i = 0 ; i < 8; i++){
-		if ( i == 4 ){
-			ptr_rx = ptr_rx + 8;
-		}
-		*ptr_struct = *ptr_rx;
-		ptr_struct++;
-		ptr_rx--;
-	}
-}
-
-void CAN_message_void_fill_StopStruct(){
-	ptr_rx = rx_msg_data;
-	ptr_rx = ptr_rx + 3;
-
-	ptr_struct = &stopStruct;
-
-	for (i = 0 ; i < 8; i++){
-		if ( i == 4 ){
-			ptr_rx = ptr_rx + 8;
-		}
-		*ptr_struct = *ptr_rx;
-		ptr_struct++;
-		ptr_rx--;
-	}
-}
-
-void CAN_message_void_fill_ReverseStruct(){
-	ptr_rx = rx_msg_data;
-	ptr_rx = ptr_rx + 3;
-
-	ptr_struct = &reverseStruct;
-
-	for (i = 0 ; i < 8; i++){
-		if ( i == 4 ){
-			ptr_rx = ptr_rx + 8;
-		}
-		*ptr_struct = *ptr_rx;
-		ptr_struct++;
-		ptr_rx--;
-	}
-}
-
-void CAN_message_void_fill_ThirdLightStruct(){
-	ptr_rx = rx_msg_data;
-	ptr_rx = ptr_rx + 3;
-
-	ptr_struct = &thirdlightStruct;
-
-	for (i = 0 ; i < 8; i++){
-		if ( i == 4 ){
-			ptr_rx = ptr_rx + 8;
-		}
-		*ptr_struct = *ptr_rx;
-		ptr_struct++;
-		ptr_rx--;
-	}
-}
 void CAN_message_void_TurnBehavior(){
 	//CAN_message_void_fillParams3();
 	time_on_3 = params3[1] * 6;
 	time_off_3 = params3[2] * 6;
 	switch(params3[0]){
 	case 0x01:
-		CAN_message_void_PWM_Turn_Right_FRONT(percent_MIN);
-		CAN_message_void_PWM_Turn_Left_FRONT(percent_MIN);
-		CAN_message_void_PWM_Turn_Right_REAR(0);
-		CAN_message_void_PWM_Turn_Left_REAR(0);
+		CAN_LEDS_void_PWM_Turn_Right_FRONT(percent_MIN);
+		CAN_LEDS_void_PWM_Turn_Left_FRONT(percent_MIN);
+		CAN_LEDS_void_PWM_Turn_Right_REAR(0);
+		CAN_LEDS_void_PWM_Turn_Left_REAR(0);
 		break;
 
 	case 0x0A:
@@ -469,8 +242,8 @@ void CAN_message_void_Hazard(){
 	switch(params2[0]){
 	case 0x00:
 		hazardflag = 0;
-		CAN_message_void_PWM_Hazard_FRONT(percent_MIN);
-		CAN_message_void_PWM_Hazard_REAR(0);
+		CAN_LEDS_void_PWM_Hazard_FRONT(percent_MIN);
+		CAN_LEDS_void_PWM_Hazard_REAR(0);
 		params2[0] = 0x01;
 		break;
 
@@ -488,13 +261,11 @@ void CAN_message_void_Hazard(){
 void CAN_message_void_Stop(){
 	switch (params5[0]) {
 	case 0x00:
-		CAN_message_void_PWM_Stop(percent_MIN);
-		CAN_message_void_PWM_ThirdLight(0);
+		CAN_LEDS_void_PWM_Stop(percent_MIN);
 		break;
 
 	case 0x0F:
-		CAN_message_void_PWM_Stop(100);
-		CAN_message_void_PWM_ThirdLight(100);
+		CAN_LEDS_void_PWM_Stop(100);
 		break;
 
 	}
@@ -503,11 +274,11 @@ void CAN_message_void_Stop(){
 void CAN_message_void_Reverse(){
 	switch (params6[0]) {
 	case 0x00:
-		CAN_message_void_PWM_Reverse(0);
+		CAN_LEDS_void_PWM_Reverse(0);
 		break;
 
 	case 0x0F:
-		CAN_message_void_PWM_Reverse(100);
+		CAN_LEDS_void_PWM_Reverse(100);
 		break;
 
 	}
@@ -520,25 +291,28 @@ void CAN_message_void_MainLights(){
 	case 0x01:
 		percent_MAX = 100;
 		percent_MIN = 0;
-		CAN_message_void_PWM_Heads(0);
+		CAN_LEDS_void_PWM_Heads(0);
 		break;
 
 	case 0x02:
 		percent_MAX = 100;
 		percent_MIN = 5;
-		CAN_message_void_PWM_Heads(0);
+		CAN_LEDS_void_PWM_Heads(0);
 		break;
 
 	case 0x03:
 		percent_MAX = 100;
 		percent_MIN = 5;
-		CAN_message_void_PWM_Heads(100);
+		CAN_LEDS_void_PWM_Heads(100);
 		break;
 
 	case 0x04:
 		CAN_message_void_MainLights_Auto();
 		break;
 
+	default:
+		percent_MIN = 5;
+	break;
 	}
 }
 
