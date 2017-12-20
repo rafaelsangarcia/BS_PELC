@@ -5,9 +5,9 @@
 /*============================================================================*/
 /*!
  * $Source: message.c
- * $Revision: 8
- * $Author: Rafael Sanchez
- * $Date: 19/Dic/2017
+ * $Revision: 9
+ * $Author: Rodrigo Jonathan Mortera Peña
+ * $Date: 20/Dic/2017
  */
 /*============================================================================*/
 /* DESCRIPTION :                                                              */
@@ -42,6 +42,7 @@
 /*  Rodrigo Mortera  |      6             |  Add reverseStruct                */
 /*  Rafael Sanchez   |      7             |  Add Auto mainLights              */
 /*  Rafael Sanchez   |      8             |  Split functions		              */
+/*  Rodrigo Mortera  |      9             |  Add ThirLightStop function       */
 /*============================================================================*/
 /*                               OBJECT HISTORY                               */
 /*============================================================================*/
@@ -261,10 +262,12 @@ void CAN_message_void_Stop(){
 	switch (params5[0]) {
 	case 0x00:
 		CAN_LEDS_void_PWM_Stop(percent_MIN);
+		CAN_LEDS_void_PWM_ThirdLightStop(0);
 		break;
 
 	case 0x0F:
 		CAN_LEDS_void_PWM_Stop(100);
+		CAN_LEDS_void_PWM_ThirdLightStop(100);
 		break;
 
 	}
