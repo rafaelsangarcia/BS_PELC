@@ -214,8 +214,8 @@ void CAN_message_void_MainLights_Auto(){
 
 void CAN_message_void_TurnBehavior(){
 	//CAN_message_void_fillParams3();
-	time_on_3 = params3[1] * 6;
-	time_off_3 = params3[2] * 6;
+	time_on_3 = params3[1] * 5;
+	time_off_3 = params3[2] * 5;
 	switch(params3[0]){
 	case 0x01:
 		CAN_LEDS_void_PWM_Turn_Right_FRONT(percent_MIN);
@@ -236,8 +236,8 @@ void CAN_message_void_TurnBehavior(){
 
 void CAN_message_void_Hazard(){
 	//CAN_message_void_fillParams2();
-	time_on_2 = params2[1] * 25;
-	time_off_2 = params2[2] * 25;
+	time_on_2 = params2[1] * 5;
+	time_off_2 = params2[2] * 5;
 	switch(params2[0]){
 	case 0x00:
 		hazardflag = 0;

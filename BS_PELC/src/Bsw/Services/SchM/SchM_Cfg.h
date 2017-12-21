@@ -73,9 +73,9 @@ typedef enum{
 	SCHM_MASK_LISTEN = 3,
 	SCHM_MASK_MAINLIGHTS = 7,
 	SCHM_MASK_HAZARD = 15,
-	SCHM_MASK_TURN = 31,
+	SCHM_MASK_TURN = 15,
 	//SCHM_MASK_REVERSE = 63,
-	SCHM_MASK_STOP = 127,
+	SCHM_MASK_STOP = 7,
 }SchM_TaskMaskType;
 
 typedef enum {
