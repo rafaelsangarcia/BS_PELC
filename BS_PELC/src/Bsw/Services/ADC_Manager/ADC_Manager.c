@@ -1,7 +1,83 @@
+/*============================================================================*/
+/*                        I BS SOFTWARE GROUP                                 */
+/*============================================================================*/
+/*                        OBJECT SPECIFICATION                                */
+/*============================================================================*/
+/*!
+ * $Source: filename.c $
+ * $Revision: 3 $
+ * $Author: Rodrigo Mortera $
+ * $Date: 20/12/2017 $
+ */
+/*============================================================================*/
+/* DESCRIPTION :                                                              */
+/** \file
+    short description in one sentence end with dot.
+    detailed
+    multiline
+    description of the file
+*/
+/*============================================================================*/
+/* COPYRIGHT (C) CONTINENTAL AUTOMOTIVE 2014                                  */
+/* AUTOMOTIVE GROUP, Interior Division, Body and Security                     */
+/* ALL RIGHTS RESERVED                                                        */
+/*                                                                            */
+/* The reproduction, transmission, or use of this document or its content is  */
+/* not permitted without express written authority. Offenders will be liable  */
+/* for damages.                                                               */
+/* All rights, including rights created by patent grant or registration of a  */
+/* utility model or design, are reserved.                                     */
+/*                                                                            */
+/*============================================================================*/
+/*============================================================================*/
+/*                    REUSE HISTORY - taken over from                         */
+/*============================================================================*/
+/*  AUTHOR           |        VERSION     | DESCRIPTION                       */
+/*----------------------------------------------------------------------------*/
+/*  Rodrigo Mortera  |         1           |  Add control ADC function        */
+/*  Rodrigo Mortera  |         2           |  Add control ADC Clean Flag function*/
+/*  Rodrigo Mortera  |         3           |  Enable FTM0 & FTM1 channels       */
+
+/*============================================================================*/
+/*                               OBJECT HISTORY                               */
+/*============================================================================*/
+/*
+ * $Log: filename.c  $
+  ============================================================================*/
+
+/* Includes */
 #include "ADC_Manager.h"
+/*============================================================================*/
 
-//int i=0;
 
+
+/* Constants and types  */
+/*============================================================================*/
+
+
+
+/* Variables */
+/*============================================================================*/
+
+
+
+/* Private functions prototypes */
+/*============================================================================*/
+
+
+
+/* Inline functions */
+/*============================================================================*/
+
+
+
+
+/* Private functions */
+/*============================================================================*/
+
+
+
+/* Exported functions */
 void Control_ADC (int percentage) {
 	/*convertAdcChan(12);
 	while(adc_complete()==0){}*/
@@ -42,3 +118,14 @@ void PWM_1 (int channel){
 			FTM0->CONTROLS[1].CnV = i;
 			FTM1->CONTROLS[0].CnV = i;
 			FTM1->CONTROLS[1].CnV = i;*/
+/*============================================================================*/
+
+
+
+ /* Notice: the file ends with a blank new line to avoid compiler warnings */
+
+
+
+//int i=0;
+
+

@@ -103,6 +103,11 @@ void CAN_LEDS_void_PWM_Stop(int percentage){
 	PWM_0(5);
 }
 
+void CAN_LEDS_void_PWM_ThirdLightStop(int percentage){
+	Control_ADC(percentage);
+	PWM_1(0);
+}
+
 void CAN_LEDS_void_PWM_Reverse(int percentage){
 	Control_ADC(percentage);
 	PWM_0(6);

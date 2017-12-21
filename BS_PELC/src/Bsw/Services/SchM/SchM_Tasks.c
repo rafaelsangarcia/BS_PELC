@@ -5,9 +5,9 @@
 /*============================================================================*/
 /*!
  ** $Source: SchM_Tasks.c $
- * $Revision: version 10 $
- * $Author: Rafael Sanchez Garcia $
- * $Date: 19/Dic/2017 $
+ * $Revision: version 11 $
+ * $Author: Rodrigo Mortera Peña $
+ * $Date: 20/Dic/2017 $
  */
 /*============================================================================*/
 /* DESCRIPTION :                                                              */
@@ -44,6 +44,7 @@
 /*  Rodrigo Mortera  |      8             |  Add Stop command                 */
 /*  Rodrigo Mortera  |      9             |  Add reverse command              */
 /*  Rafael Sanchez   |      10             |  Split functions		              */
+/*  Rodrigo Mortera  |      11            |  Add third light stop             */
 /*============================================================================*/
 /*                               OBJECT HISTORY                               */
 /*============================================================================*/
